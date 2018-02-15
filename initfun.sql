@@ -201,7 +201,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `is_admin`, `username`, `password`, `email`, `brand_id`) VALUES
 (1, 1, 'initfunadmin', '200820e3227815ed1756a6b531e7e0d2', '', 1),
-(2, 0, 'shamrock', '200820e3227815ed1756a6b531e7e0d2', '', 2)
+(2, 0, 'shamrock', '200820e3227815ed1756a6b531e7e0d2', '', 2),
 (3, 0, 'max', '200820e3227815ed1756a6b531e7e0d2', '', 3);
 
 --
