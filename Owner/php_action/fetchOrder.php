@@ -14,9 +14,9 @@ if($result->num_rows > 0) {
 	while($row = $result->fetch_object()) {
 		$orderId = $row->id;
 
-		$countOrderItemSql = "SELECT count(*) FROM order_item WHERE order_id = $orderId";
+		$countOrderItemSql = "SELECT count(*) as count FROM order_item WHERE order_id = $orderId";
 		$itemCountResult = $connect->query($countOrderItemSql);
-		$itemCountRow = $itemCountResult->fetch_object();
+		$itemCountRow = $itemCountResult->fetch_object()->count;
 
 		// active 
 		if($row->payment_status == 1) {
@@ -51,7 +51,7 @@ if($result->num_rows > 0) {
 			// client name
 			$row->client_name, 
 			// client contact
-			$row->client_contract, 		 	
+			$row->client_contact, 		 	
 			$itemCountRow, 		 	
 			$paymentStatus,
 			// button
