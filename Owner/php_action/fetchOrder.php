@@ -11,12 +11,12 @@ if($result->num_rows > 0) {
 	$paymentStatus = ""; 
 	$x = 1;
 
-	while($row = $result->fetch(PDO::FETCH_OBJ)) {
+	while($row = $result->fetch_object()) {
 		$orderId = $row->id;
 
 		$countOrderItemSql = "SELECT count(*) FROM order_item WHERE order_id = $orderId";
 		$itemCountResult = $connect->query($countOrderItemSql);
-		$itemCountRow = $itemCountResult->fetch_row();
+		$itemCountRow = $itemCountResult->fetch_object();
 
 		// active 
 		if($row->payment_status == 1) {

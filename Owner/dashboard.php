@@ -1,6 +1,6 @@
-<?php require_once 'includes/header.php'; ?>
+<?php
 
-<?php 
+require_once 'includes/header.php';
 
 $sql = "SELECT * FROM product WHERE status = 1";
 $query = $connect->query($sql);

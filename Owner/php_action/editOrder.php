@@ -32,11 +32,11 @@ if($_POST) {
 		$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.id = ".$_POST['productName'][$x]."";
 		$updateProductQuantityData = $connect->query($updateProductQuantitySql);			
 
-		while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
+		while ($updateProductQuantityResult = $updateProductQuantityData->fetch_object()) {
 			// order item table add product quantity
 			$orderItemTableSql = "SELECT order_item.quantity FROM order_item WHERE order_item.order_id = {$orderId}";
 			$orderItemResult = $connect->query($orderItemTableSql);
-			$orderItemData = $orderItemResult->fetch_row();
+			$orderItemData = $orderItemResult->fetch_object();
 
 			$editQuantity = $updateProductQuantityResult[0] + $orderItemData[0];							
 
@@ -61,7 +61,7 @@ if($_POST) {
 			$updateProductQuantitySql = "SELECT product.quantity FROM product WHERE product.id = ".$_POST['productName'][$x]."";
 			$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 
-			while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
+			while ($updateProductQuantityResult = $updateProductQuantityData->fetch_object()) {
 				$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
 				// update product table
 				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE id = ".$_POST['productName'][$x]."";

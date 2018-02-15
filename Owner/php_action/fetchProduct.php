@@ -3,11 +3,11 @@
 require_once 'core.php';
 
 $sql = "SELECT product.id, product.product_name, product.product_image, product.brand_id,
-	product.categories_id, product.quantity, product.rate, product.active, product.status, 
+	product.categories_id, product.quantity, product.rate, product.active, 
 	brands.brand_name, categories.categories_name FROM product 
 	INNER JOIN brands ON product.brand_id = brands.id 
 	INNER JOIN categories ON product.categories_id = categories.id  
-	WHERE product.status = 1";
+	WHERE product.active = 1";
 
 $result = $connect->query($sql);
 
@@ -18,7 +18,7 @@ if($result->num_rows > 0) {
 	// $row = $result->fetch_array();
 	$active = ""; 
 
-	while($row = $result->fetch(PDO::FETCH_OBJ)) {
+	while($row = $result->fetch_object()) {
 		$productId = $row->id;
 		// active 
 		if($row->active == 1) {
@@ -59,7 +59,7 @@ if($result->num_rows > 0) {
 			$active,
 			// button
 			$button 		
-		); 	
+		);
 	} // /while 
 
 }// if num_rows

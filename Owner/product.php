@@ -105,7 +105,7 @@
 				      	$sql = "SELECT * FROM brands WHERE brand_active = 1";
 								$result = $connect->query($sql);
 
-								while($row = $result->fetch(PDO::FETCH_OBJ)) {
+								while($row = $result->fetch_object()) {
 									echo "<option value='".$row->id."'>".$row->brand_name."</option>";
 								} // while
 								
@@ -124,7 +124,7 @@
 				      	$sql = "SELECT * FROM categories WHERE categories_active = 1";
 								$result = $connect->query($sql);
 
-								while($row = $result->fetch(PDO::FETCH_OBJ)) {
+								while($row = $result->fetch_object()) {
 									echo "<option value='".$row->id."'>".$row->categories_name."</option>";
 								} // while
 								
@@ -263,7 +263,7 @@
 						      	$sql = "SELECT * FROM brands WHERE brand_active = 1";
 										$result = $connect->query($sql);
 
-										while($row = $result->fetch(PDO::FETCH_OBJ)) {
+										while($row = $result->fetch_object()) {
 											echo "<option value='".$row->id."'>".$row->brand_name."</option>";
 										} // while
 						      	?>
@@ -281,7 +281,7 @@
 						      	$sql = "SELECT * FROM categories WHERE categories_active = 1";
 										$result = $connect->query($sql);
 
-										while($row = $result->fetch(PDO::FETCH_OBJ)) {
+										while($row = $result->fetch_object()) {
 											echo "<option value='".$row->id."'>".$row->categories_name."</option>";
 										} // while
 										

@@ -13,7 +13,7 @@ if($_POST) {
 
 	$sql ="SELECT * FROM users WHERE id = {$userId}";
 	$query = $connect->query($sql);
-	$result = $query->fetch(PDO::FETCH_OBJ);
+	$result = $query->fetch_object();
 
 	if($currentPassword == $result->password) {
 

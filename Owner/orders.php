@@ -261,7 +261,7 @@ if($_GET['o'] == 'add') {
 					WHERE orders.id = {$orderId}";
 
 				$result = $connect->query($sql);
-				$data = $result->fetch_row();				
+				$data = $result->fetch_object();				
   			?>
 
 			  <div class="form-group">

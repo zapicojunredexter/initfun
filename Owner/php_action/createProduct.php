@@ -20,8 +20,8 @@ if($_POST) {
 		if(is_uploaded_file($_FILES['productImage']['tmp_name'])) {			
 			if(move_uploaded_file($_FILES['productImage']['tmp_name'], $url)) {
 
-				$sql = "INSERT INTO product (product_name, product_image, brand_id, categories_id, quantity, rate, active, status) 
-					VALUES ('$productName', '$url', '$brandName', '$categoryName', '$quantity', '$rate', '$productStatus', 1)";
+				$sql = "INSERT INTO product (product_name, product_image, brand_id, categories_id, quantity, rate, active) 
+					VALUES ('$productName', '$url', '$brandName', '$categoryName', '$quantity', '$rate', '$productStatus')";
 
 				if($connect->query($sql) === TRUE) {
 					$valid['success'] = true;

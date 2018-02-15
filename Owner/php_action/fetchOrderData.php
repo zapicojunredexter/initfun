@@ -10,7 +10,7 @@ $sql = "SELECT * FROM orders
 	WHERE orders.id = {$orderId}";
 
 $result = $connect->query($sql);
-$data = $result->fetch_row();
+$data = $result->fetch_object();
 $valid['order'] = $data;
 
 $connect->close();

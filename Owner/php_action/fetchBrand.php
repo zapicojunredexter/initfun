@@ -7,11 +7,11 @@ $result = $connect->query($sql);
 
 $output = array('data' => array());
 
-if($result->num_rows > 0) { 
+if($result->num_rows > 0) {
 
 	$activeBrands = ""; 
 
-	while($row = $result->fetch(PDO::FETCH_OBJ)) {
+	while($row = $result->fetch_object()) {
 		$brandId = $row->id;
 		// active 
 		if($row->brand_active == 1) {
@@ -34,7 +34,7 @@ if($result->num_rows > 0) {
 			</div>';
 
 		$output['data'][] = array( 		
-			$row[1], 		
+			$row->brand_name, 		
 			$activeBrands,
 			$button
 		); 	
@@ -44,4 +44,4 @@ if($result->num_rows > 0) {
 
 $connect->close();
 
-echo json_encode($output);
+die(json_encode($output));

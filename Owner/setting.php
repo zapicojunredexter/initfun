@@ -4,7 +4,7 @@
 $user_id = $_SESSION['userId'];
 $sql = "SELECT * FROM users WHERE id = {$user_id}";
 $query = $connect->query($sql);
-$result = $query->fetch(PDO::FETCH_OBJ);
+$result = $query->fetch_object();
 
 $connect->close();
 ?>

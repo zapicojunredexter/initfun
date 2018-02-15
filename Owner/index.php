@@ -33,14 +33,13 @@ if($_POST) {
 			$mainResult = $connect->query($mainSql);
 
 			if($mainResult->num_rows == 1) {
-				$value = $mainResult->fetch(PDO::FETCH_OBJ);
+				$value = $mainResult->fetch_object();
 
 				// set session
 				$_SESSION['userId'] = $value->id;
 
 				header('location: http://localhost/InitFun/Owner/dashboard.php');	
 			} else{
-				
 				$errors[] = "Incorrect username/password combination";
 			} // /else
 		} else {		
