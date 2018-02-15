@@ -64,7 +64,7 @@ function getcategoryproduct(){
 		                    {
 
 		                    	$product_id = $row['id'];
-		                    	$product_image = $row['product_image'];
+		                    	$product_image = substr($row['product_image'], 3);
 		                    	$product_name = $row['product_name'];
 		                    	$rate = $row['rate'];
 
@@ -72,7 +72,7 @@ function getcategoryproduct(){
 		                <div class='col-md-3'>
 		                  <form method='post' action='products.php?action=add&product_id=$product_id'>
 		                    <div style='border: 1px solid; background-color: #f1f1f1; border-radius: 5px; padding: 12px; margin: 10px;' align='center'>
-		                      <img src= 'Owner$product_image' class='image-responsive' style='width: 140px;  height: 100px; border-radius: 5px; margin-bottom: 10px;'/><br />              
+		                      <img src= 'Owner/$product_image' class='image-responsive' style='width: 140px;  height: 100px; border-radius: 5px; margin-bottom: 10px;'/><br />              
 			                      <p class='text-info' style='margin: 0px;'>$product_name</p>
 			                      <p class='text-danger' style='margin-bottom: 0px;'>$rate PHP</p>
 			                      <input type='text' name='quantity' class='form-control' value='1'/>
