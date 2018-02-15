@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brands` (
   `id` int(11) NOT NULL,
   `brand_name` varchar(255) NOT NULL,
-  `brand_active` int(1) NOT NULL DEFAULT '0',
+  `brand_active` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -50,7 +50,7 @@ INSERT INTO `brands` (`id`, `brand_name`, `brand_active`) VALUES
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `categories_name` varchar(255) NOT NULL,
-  `categories_active` int(1) NOT NULL DEFAULT '0',
+  `categories_active` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -162,7 +162,7 @@ CREATE TABLE `product` (
   `categories_id` int(11) NOT NULL,
   `quantity` varchar(255) NOT NULL,
   `rate` varchar(255) NOT NULL,
-  `active` int(1) NOT NULL DEFAULT '0',
+  `active` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
