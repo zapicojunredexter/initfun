@@ -33,11 +33,10 @@ if($_POST) {
 			$mainResult = $connect->query($mainSql);
 
 			if($mainResult->num_rows == 1) {
-				$value = $mainResult->fetch_assoc();
-				$user_id = $value['user_id'];
+				$value = $mainResult->fetch(PDO::FETCH_OBJ);
 
 				// set session
-				$_SESSION['userId'] = $user_id;
+				$_SESSION['userId'] = $value->id;
 
 				header('location: http://localhost/InitFun/Owner/dashboard.php');	
 			} else{
@@ -129,11 +128,3 @@ if($_POST) {
 	<!-- container -->	
 </body>
 </html>
-
-
-
-
-
-
-
-	

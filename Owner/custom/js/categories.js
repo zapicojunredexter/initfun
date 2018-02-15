@@ -131,8 +131,7 @@ function editCategories(categoriesId = null) {
 				// set the categories status
 				$("#editCategoriesStatus").val(response.categories_active);
 				// add the categories id 
-				$(".editCategoriesFooter").after('<input type="hidden" name="editCategoriesId" id="editCategoriesId" value="'+response.categories_id+'" />');
-
+				$(".editCategoriesFooter").after('<input type="hidden" name="editCategoriesId" id="editCategoriesId" value="'+response.id+'" />');
 
 				// submit of edit categories form
 				$("#editCategoriesForm").unbind('submit').bind('submit', function() {

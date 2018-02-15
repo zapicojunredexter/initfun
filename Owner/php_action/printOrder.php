@@ -4,7 +4,7 @@ require_once 'core.php';
 
 $orderId = $_POST['orderId'];
 
-$sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due FROM orders WHERE order_id = $orderId";
+$sql = "SELECT order_date, client_name, client_contact, sub_total, vat, total_amount, discount, grand_total, paid, due FROM orders WHERE id = $orderId";
 
 $orderResult = $connect->query($sql);
 $orderData = $orderResult->fetch_array();
@@ -23,7 +23,7 @@ $due = $orderData[9];
 
 $orderItemSql = "SELECT order_item.product_id, order_item.rate, order_item.quantity, order_item.total,
 product.product_name FROM order_item
-	INNER JOIN product ON order_item.product_id = product.product_id 
+	INNER JOIN product ON order_item.product_id = product.id 
  WHERE order_item.order_id = $orderId";
 $orderItemResult = $connect->query($orderItemSql);
 

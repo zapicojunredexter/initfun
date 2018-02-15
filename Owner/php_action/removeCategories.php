@@ -9,7 +9,7 @@ $categoriesId = $_POST['categoriesId'];
 
 if($categoriesId) { 
 
- $sql = "UPDATE categories SET categories_status = 2 WHERE categories_id = {$categoriesId}";
+ $sql = "UPDATE categories SET categories_status = 2 WHERE id = {$categoriesId}";
 
  if($connect->query($sql) === TRUE) {
  	$valid['success'] = true;
@@ -20,7 +20,7 @@ if($categoriesId) {
  }
  
  $connect->close();
-
- echo json_encode($valid);
  
 } // /if $_POST
+
+echo json_encode($valid);

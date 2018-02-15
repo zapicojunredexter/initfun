@@ -17,7 +17,7 @@ function getcategory(){
 			while($row_cat=mysqli_fetch_array($cat_result)){
 
 				$categories_name = $row_cat['categories_name'];
-        		$categories_id = $row_cat['categories_id'];
+        		$categories_id = $row_cat['id'];
            		$first_name = $row['first_name'];
                 $middle_name = $row['middle_name'];
                 $last_name = $row['last_name'];
@@ -36,7 +36,7 @@ function getcategory(){
 			$cat_result = mysqli_query($connect,$cat_query);
 			while($row_cat=mysqli_fetch_array($cat_result)){
 				$categories_name = $row_cat['categories_name'];
-        		$categories_id = $row_cat['categories_id'];
+        		$categories_id = $row_cat['id'];
 
         		echo"<li><button class='btn'><a href='products.php?cat=".$categories_id."'>$categories_name</a></button></li>";
 			}    		
@@ -52,7 +52,7 @@ function getcategoryproduct(){
 
 			global $connect;		
 
-			$query = "SELECT * from product WHERE categories_id = '$categories_id'and active = '1' ORDER by product_id ASC";
+			$query = "SELECT * from product WHERE categories_id = '$categories_id' and active = '1' ORDER by id ASC";
 
 		                $result = mysqli_query($connect, $query);
 
@@ -63,7 +63,7 @@ function getcategoryproduct(){
 		                    while($row = mysqli_fetch_array($result))
 		                    {
 
-		                    	$product_id = $row['product_id'];
+		                    	$product_id = $row['id'];
 		                    	$product_image = $row['product_image'];
 		                    	$product_name = $row['product_name'];
 		                    	$rate = $row['rate'];
@@ -107,7 +107,7 @@ function getallproducts(){
     while($row = mysqli_fetch_array($result)){
 
 
-        $product_id = $row['product_id'];
+        $product_id = $row['id'];
         $product_name = $row['product_name']; 
         $rate = $row['rate'];
         $product_image = $row['product_image'];

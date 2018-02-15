@@ -107,7 +107,7 @@ if($_GET['o'] == 'add') {
 			  							$productData = $connect->query($productSql);
 
 			  							while($row = $productData->fetch_array()) {									 		
-			  								echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."'>".$row['product_name']."</option>";
+			  								echo "<option value='".$row['id']."' id='changeProduct".$row['id']."'>".$row['product_name']."</option>";
 										 	} // /while 
 
 			  						?>
@@ -257,8 +257,8 @@ if($_GET['o'] == 'add') {
 
   			<?php $orderId = $_GET['i'];
 
-  			$sql = "SELECT orders.order_id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders 	
-					WHERE orders.order_id = {$orderId}";
+  			$sql = "SELECT orders.id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders 	
+					WHERE orders.id = {$orderId}";
 
 				$result = $connect->query($sql);
 				$data = $result->fetch_row();				
@@ -296,7 +296,7 @@ if($_GET['o'] == 'add') {
 			  	<tbody>
 			  		<?php
 
-			  		$orderItemSql = "SELECT order_item.order_item_id, order_item.order_id, order_item.product_id, order_item.quantity, order_item.rate, order_item.total FROM order_item WHERE order_item.order_id = {$orderId}";
+			  		$orderItemSql = "SELECT * FROM order_item WHERE order_item.order_id = {$orderId}";
 						$orderItemResult = $connect->query($orderItemSql);
 						// $orderItemData = $orderItemResult->fetch_all();						
 						
@@ -313,18 +313,18 @@ if($_GET['o'] == 'add') {
 			  					<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
 			  						<option value="">~~SELECT~~</option>
 			  						<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  							$productSql = "SELECT * FROM product WHERE active = 1 AND quantity != 0";
 			  							$productData = $connect->query($productSql);
 
-			  							while($row = $productData->fetch_array()) {									 		
+			  							while($row = $productData->fetch_assoc()) {
 			  								$selected = "";
-			  								if($row['product_id'] == $orderItemData['product_id']) {
+			  								if($row['id'] == $orderItemData['product_id']) {
 			  									$selected = "selected";
 			  								} else {
 			  									$selected = "";
 			  								}
 
-			  								echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
+			  								echo "<option value='".$row['id']."' id='changeProduct".$row['id']."' ".$selected." >".$row['product_name']."</option>";
 										 	} // /while 
 
 			  						?>

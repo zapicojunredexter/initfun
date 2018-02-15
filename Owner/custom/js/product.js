@@ -228,8 +228,8 @@ function editProduct(productId = null) {
 				// });  
 
 				// product id 
-				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
-				$(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.product_id+'" />');				
+				$(".editProductFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.id+'" />');				
+				$(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="'+response.id+'" />');				
 				
 				// product name
 				$("#editProductName").val(response.product_name);

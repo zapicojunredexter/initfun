@@ -11,15 +11,15 @@ if($_POST) {
 	$conformPassword = md5($_POST['cpassword']);
 	$userId = $_POST['user_id'];
 
-	$sql ="SELECT * FROM users WHERE user_id = {$userId}";
+	$sql ="SELECT * FROM users WHERE id = {$userId}";
 	$query = $connect->query($sql);
-	$result = $query->fetch_assoc();
+	$result = $query->fetch(PDO::FETCH_OBJ);
 
-	if($currentPassword == $result['password']) {
+	if($currentPassword == $result->password) {
 
 		if($newPassword == $conformPassword) {
 
-			$updateSql = "UPDATE users SET password = '$newPassword' WHERE user_id = {$userId}";
+			$updateSql = "UPDATE users SET password = '$newPassword' WHERE id = {$userId}";
 			if($connect->query($updateSql) === TRUE) {
 				$valid['success'] = true;
 				$valid['messages'] = "Successfully Updated";		

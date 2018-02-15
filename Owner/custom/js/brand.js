@@ -122,7 +122,7 @@ function editBrands(brandId = null) {
 				// setting the brand status value
 				$('#editBrandStatus').val(response.brand_active);
 				// brand id 
-				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.brand_id+'" />');
+				$(".editBrandFooter").after('<input type="hidden" name="brandId" id="brandId" value="'+response.id+'" />');
 
 				// update brand form 
 				$('#editBrandForm').unbind('submit').bind('submit', function() {
@@ -217,7 +217,7 @@ function removeBrands(brandId = null) {
 			data: {brandId : brandId},
 			dataType: 'json',
 			success:function(response) {
-				$('.removeBrandFooter').after('<input type="hidden" name="removeBrandId" id="removeBrandId" value="'+response.brand_id+'" /> ');
+				$('.removeBrandFooter').after('<input type="hidden" name="removeBrandId" id="removeBrandId" value="'+response.id+'" /> ');
 
 				// click on remove button to remove the brand
 				$("#removeBrandBtn").unbind('click').bind('click', function() {
