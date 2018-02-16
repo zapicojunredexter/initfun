@@ -23,22 +23,14 @@ while($row = mysqli_fetch_array($results)){
 ?>
 
 <style type="text/css">
-  
-  .sign-up-block{
-  background: #DE6262;
-  background: linear-gradient(to bottom, #ffd099, rgba(255, 93, 14, .8313725490196079));  
-  width:100%;
-  padding : 50px 90px;
-  height: 100vh;
-  }
-  .banner-sec{background-size:cover; height:84.9vh; border-radius: 0 10px 10px 0; padding:0;}
-  .containerl-fluid{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1); height: 84.9vh;}
+  .sign-up-block{background: linear-gradient(to bottom, #ffd099, rgba(255, 93, 14, .8313725490196079));width:100%;padding: 50px 90px; height: 850px ;}
+  .containerl-fluid{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1); height: auto; padding-bottom:20px;margin-bottom: 40px;}
   h2{margin:30px 0px; font-weight:800; font-size:30px; color: rgba(255, 93, 14, .8313725490196079);}
   .btn-signup{background: #fff; border:1px solid rgba(255, 93, 14, .8313725490196079); color: rgba(255, 93, 14, .8313725490196079); width: 120px; transition: 0.5s all;}
   .btn-signup:hover{background: rgba(255, 93, 14, .8313725490196079); border:1px solid rgba(255, 93, 14, .8313725490196079); color: #fff; transition: 0.5s all;}
 </style>
 
-<section class="sign-up-block">
+<div class="sign-up-block">
   <div class="col-md-12 containerl-fluid">
     <div class="row">
       <div class="col-md-12 sign-up-sec" style="">
@@ -59,8 +51,8 @@ while($row = mysqli_fetch_array($results)){
 
           <div class="col-md-2">
             <label class="text-uppercase">Gender</label><br>
-                  <label class="radio-inline"><input type="radio" name="gender" value="Male" checked=<?php if($_POST['gender'] = "Male")?>>Male</label>
-                  <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value="Male" <?php if($gender == "Male") echo 'checked="checked"';?>>Male</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value="Female" <?php if($gender == "Female") echo 'checked="checked"';?>>Female</label>
           </div>
           <div class="col-md-2 form-group">
               <label for="" class="text-uppercase">Phone Number</label>
@@ -83,30 +75,40 @@ while($row = mysqli_fetch_array($results)){
                   <label for="" class="text-uppercase">Permanent Address</label>
                   <input type="text" class="form-control" placeholder="" name="permanent_address" value="<?php echo $permanent_address; ?>">
           </div>
-          <div class="col-md-6 form-group">
-                  <label for="" class="text-uppercase">Current Password</label>
-                  <input type="password" class="form-control" placeholder="***********" name="password_1">
-          </div>
-          <div class="col-md-6 form-group">
-                  <label for="" class="text-uppercase">New Password</label>
-                  <input type="password" class="form-control" placeholder="***********" name="password_1">
-          </div>
-          <div class="col-md-6 form-group">
-                  <label for="" class="text-uppercase">Confirm New Password</label>
-                  <input type="password" class="form-control" placeholder="***********" name="password_2">
-          </div>
 
-          <div class="col-md-6 form-group" style="margin-top:5px;">
-          	<br>
+          <div class="col-md-12 form-group" style="margin-top:5px;">
+            <br>
             <div class="col-md-3">
-                <button type="submit" class="btn btn-success" name="signup">Save Changes</button>
-            </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-success" name="update_prof">Update Profile</button>
             </div>
           </div>
         </form>
       </div>  
     </div>
   </div>
-</section>
+      <!-- changepass -->
+        <div class="col-md-12 containerl-fluid" style="padding-top: 40px">
+            <form method="post" action="changePass.php?id=$id">
+                <div class="col-md-6 form-group">
+                        <label for="" class="text-uppercase">Current Password</label>
+                        <input type="password" class="form-control" placeholder="***********" name="password">
+                </div>
+                <div class="col-md-6 form-group">
+                        <label for="" class="text-uppercase">New Password</label>
+                        <input type="password" class="form-control" placeholder="***********" name="npassword">
+                </div>
+                <div class="col-md-6 form-group">
+                        <label for="" class="text-uppercase">Confirm New Password</label>
+                        <input type="password" class="form-control" placeholder="***********" name="cnpassword">
+                </div>
+
+                <div class="col-md-6 form-group" style="margin-top:5px;">
+                  <br>
+                  <div class="col-md-3">
+                      <input type="hidden" name="id" id="id" value="<?php echo $_GET['id'];?>" /> 
+                      <button type="submit" class="btn btn-success" name="change_pass">Change Password</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+</div>

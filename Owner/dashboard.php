@@ -2,7 +2,7 @@
 
 require_once 'includes/header.php';
 
-$sql = "SELECT * FROM product WHERE status = 1";
+$sql = "SELECT * FROM product WHERE active = 1";
 $query = $connect->query($sql);
 $countProduct = $query->num_rows;
 
@@ -15,7 +15,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 	$totalRevenue += $orderResult['paid'];
 }
 
-$lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
+$lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND active = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
 

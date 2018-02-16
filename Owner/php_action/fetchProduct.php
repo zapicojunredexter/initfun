@@ -54,7 +54,7 @@ if($result->num_rows > 0) {
 			// brand
 			$row->brand_name,
 			// category 		
-			$row->category_name,
+			$row->categories_name,
 			// active
 			$active,
 			// button
