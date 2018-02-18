@@ -1,6 +1,6 @@
 <?php 
 require_once 'includes/header.php'; 
-require_once 'owner/php_action/db_connect.php'	
+require_once 'changePass.php';	
 ?>
 
 <?php 
@@ -8,7 +8,7 @@ $db = mysqli_connect('localhost', 'root', '', 'initfun');
 
 $id = $_GET['id'];
 
-$results = mysqli_query($db, "SELECT * FROM customers WHERE id = $id");
+$results = mysqli_query($db, "SELECT * FROM customers WHERE id = '$id'");
 while($row = mysqli_fetch_array($results)){
   $first_name = $row['first_name'];
   $middle_name = $row['middle_name'];
@@ -35,7 +35,8 @@ while($row = mysqli_fetch_array($results)){
     <div class="row">
       <div class="col-md-12 sign-up-sec" style="">
         <h2 class="text-center"> <img src="img/welcome_logo.png" width="130" height="100" style="background:cover;"></img>Update your Profile</h2>
-        <form action= "editProfile.php" method="post" class="sign-up-form" action="sign-up.php">
+        <form method="post" class="sign-up-form" action="changeProfile.php?id=<?php echo $id;?>">
+          <?php include("errors.php"); ?>
           <div class="col-md-4 form-group">
               <label for="" class="text-uppercase">Last Name</label>
               <input type="text" class="form-control" placeholder="" name="last_name" value="<?php echo $last_name ; ?>">
@@ -88,18 +89,18 @@ while($row = mysqli_fetch_array($results)){
   </div>
       <!-- changepass -->
         <div class="col-md-12 containerl-fluid" style="padding-top: 40px">
-            <form method="post" action="changePass.php?id=$id">
+            <form method="post" action="customerprofile.php?id=<?php echo $id;?>">
                 <div class="col-md-6 form-group">
                         <label for="" class="text-uppercase">Current Password</label>
-                        <input type="password" class="form-control" placeholder="***********" name="password">
+                        <input type="password" class="form-control" placeholder="***********" name="old_password">
                 </div>
                 <div class="col-md-6 form-group">
                         <label for="" class="text-uppercase">New Password</label>
-                        <input type="password" class="form-control" placeholder="***********" name="npassword">
+                        <input type="password" class="form-control" placeholder="***********" name="new_password">
                 </div>
                 <div class="col-md-6 form-group">
                         <label for="" class="text-uppercase">Confirm New Password</label>
-                        <input type="password" class="form-control" placeholder="***********" name="cnpassword">
+                        <input type="password" class="form-control" placeholder="***********" name="confirm_password">
                 </div>
 
                 <div class="col-md-6 form-group" style="margin-top:5px;">
