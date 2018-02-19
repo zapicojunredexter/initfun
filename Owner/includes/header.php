@@ -54,8 +54,14 @@
       <ul class="nav navbar-nav navbar-right">        
 
       	<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-list-alt"></i>  Dashboard</a></li>        
-        
-        <li id="navBrand"><a href="brand.php"><i class="glyphicon glyphicon-btc"></i>  Brand</a></li>        
+        <?php
+
+          $query = "SELECT * from users where id = '1' AND is_admin = '1'";
+          $result = mysqli_query($connect, $query);
+          $row = mysqli_fetch_assoc($result);
+          echo "<li id='navBrand'><a href='brand.php?'><i class='glyphicon glyphicon-user'></i> Bakeshop Owners</a></li>";
+
+        ?>  
 
         <li id="navCategories"><a href="categories.php"> <i class="glyphicon glyphicon-th-list"></i> Category</a></li>        
 

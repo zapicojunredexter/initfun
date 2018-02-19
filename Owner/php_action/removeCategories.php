@@ -9,7 +9,7 @@ $categoriesId = $_POST['categoriesId'];
 
 if($categoriesId) { 
 
- $sql = "UPDATE categories SET categories_status = 2 WHERE id = {$categoriesId}";
+ $sql = "UPDATE categories SET categories_active = 2 WHERE id = {$categoriesId}";
 
  if($connect->query($sql) === TRUE) {
  	$valid['success'] = true;
