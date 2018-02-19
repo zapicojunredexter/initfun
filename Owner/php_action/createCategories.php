@@ -9,8 +9,8 @@ if($_POST) {
 	$categoriesName = $_POST['categoriesName'];
   $categoriesStatus = $_POST['categoriesStatus']; 
 
-	$sql = "INSERT INTO categories (categories_name, categories_active, categories_status) 
-	VALUES ('$categoriesName', '$categoriesStatus', 1)";
+	$sql = "INSERT INTO categories (categories_name, categories_active) 
+	VALUES ('$categoriesName', 1)";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;

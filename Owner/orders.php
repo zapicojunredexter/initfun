@@ -103,7 +103,7 @@ if($_GET['o'] == 'add') {
 			  					<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
 			  						<option value="">~~SELECT~~</option>
 			  						<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+			  							$productSql = "SELECT * FROM product WHERE active = 1 AND quantity != 0";
 			  							$productData = $connect->query($productSql);
 
 			  							while($row = $productData->fetch_array()) {									 		
@@ -257,8 +257,7 @@ if($_GET['o'] == 'add') {
 
   			<?php $orderId = $_GET['i'];
 
-  			$sql = "SELECT orders.id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders 	
-					WHERE orders.id = {$orderId}";
+  			$sql = "SELECT orders.id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders WHERE orders.id = {$orderId}";
 
 				$result = $connect->query($sql);
 				$data = $result->fetch_object();				
