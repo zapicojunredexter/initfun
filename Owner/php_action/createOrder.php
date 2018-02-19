@@ -40,7 +40,7 @@ if($_POST) {
 
 
 		while ($updateProductQuantityResult = $updateProductQuantityData->fetch_object()) {
-			$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
+			$updateQuantity[$x] = $updateProductQuantityResult->quantity - $_POST['quantity'][$x];							
 			// update product table
 			$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE id = ".$_POST['productName'][$x]."";
 			$connect->query($updateProductTable);

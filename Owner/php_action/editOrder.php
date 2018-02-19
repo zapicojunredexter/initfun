@@ -38,7 +38,7 @@ if($_POST) {
 			$orderItemResult = $connect->query($orderItemTableSql);
 			$orderItemData = $orderItemResult->fetch_object();
 
-			$editQuantity = $updateProductQuantityResult[0] + $orderItemData[0];							
+			$editQuantity = $updateProductQuantityResult->quantity + $orderItemData->quantity;							
 
 			$updateQuantitySql = "UPDATE product SET quantity = $editQuantity WHERE id = ".$_POST['productName'][$x]."";
 			$connect->query($updateQuantitySql);		
@@ -62,7 +62,7 @@ if($_POST) {
 			$updateProductQuantityData = $connect->query($updateProductQuantitySql);
 
 			while ($updateProductQuantityResult = $updateProductQuantityData->fetch_object()) {
-				$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];							
+				$updateQuantity[$x] = $updateProductQuantityResult->quantity - $_POST['quantity'][$x];							
 				// update product table
 				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE id = ".$_POST['productName'][$x]."";
 				$connect->query($updateProductTable);
