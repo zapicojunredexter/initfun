@@ -55,7 +55,7 @@
 
       	<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-list-alt"></i>  Dashboard</a></li>        
         <?php
-
+          
           $query = "SELECT * from users where id = '1' AND is_admin = '1'";
           $result = mysqli_query($connect, $query);
           $row = mysqli_fetch_assoc($result);
