@@ -64,9 +64,7 @@
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-7">
 				      <select class="form-control" id="categoriesStatus" name="categoriesStatus">
-				      	<option value="">~~SELECT~~</option>
-				      	<option value="1">Available</option>
-				      	<option value="2">Not Available</option>
+				      	<option value="1" selected="selected">Available</option>
 				      </select>
 				    </div>
 	        </div> <!-- /form-group-->	         	        

@@ -28,7 +28,7 @@
 							<th>Product Name</th>
 							<th>Rate</th>							
 							<th>Quantity</th>
-							<th>Brand</th>
+							<th>Bakeshop Owner</th>
 							<th>Category</th>
 							<th>Status</th>
 							<th style="width:15%;">Options</th>
@@ -138,9 +138,7 @@
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
 				      <select class="form-control" id="productStatus" name="productStatus">
-				      	<option value="">~~SELECT~~</option>
-				      	<option value="1">Available</option>
-				      	<option value="2">Not Available</option>
+				      	<option value="1" selected="selected">Available</option>
 				      </select>
 				    </div>
 	        </div> <!-- /form-group-->	         	        

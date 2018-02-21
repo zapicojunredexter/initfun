@@ -38,7 +38,7 @@ if($_POST) {
 				// set session
 				$_SESSION['userId'] = $value->id;
 
-				header('location: http://localhost/InitFun/Owner/dashboard.php');	
+				header('location:dashboard.php?id='.$value->id.'');	
 			} else{
 				$errors[] = "Incorrect username/password combination";
 			} // /else

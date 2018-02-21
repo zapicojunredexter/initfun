@@ -48,46 +48,77 @@
       <!-- <a class="navbar-brand" href="#">Brand</a> -->
     </div>
 
+
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+  <?php
+    $id = $_GET['id'];
+    $query = "SELECT * from users where id = '$id'";
+    $result = mysqli_query($connect, $query);
+    $row = mysqli_fetch_assoc($result);
+      if($row['is_admin'] == 1){
+    echo "
+    <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>      
 
-      <ul class="nav navbar-nav navbar-right">        
+      <ul class='nav navbar-nav navbar-right'>        
 
-      	<li id="navDashboard"><a href="index.php"><i class="glyphicon glyphicon-list-alt"></i>  Dashboard</a></li>        
-        <?php
+        <li id='navDashboard'><a href='dashboard.php?id=".$row['id']."'><i class='glyphicon glyphicon-list-alt'></i>  Dashboard</a></li>        
           
-          $query = "SELECT * from users where id = '1' AND is_admin = '1'";
-          $result = mysqli_query($connect, $query);
-          $row = mysqli_fetch_assoc($result);
-          echo "<li id='navBrand'><a href='brand.php?'><i class='glyphicon glyphicon-user'></i> Bakeshop Owners</a></li>";
+        <li id='navBrand'><a href='brand.php?id=".$row['id']."'><i class='glyphicon glyphicon-user'></i> Bakeshops </a></li>
+            
+        <li id='navCategories'><a href='categories.php?id=".$row['id']."'> <i class='glyphicon glyphicon-th-list'></i> Category</a></li>        
 
-        ?>  
+        <li id='navProduct'><a href='product.php?id=".$row['id']."'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
 
-        <li id="navCategories"><a href="categories.php"> <i class="glyphicon glyphicon-th-list"></i> Category</a></li>        
+        <li id='navReport'><a href='report.php?id=".$row['id']."'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
 
-        <li id="navProduct"><a href="product.php"> <i class="glyphicon glyphicon-ruble"></i> Product </a></li>     
-
-        <li class="dropdown" id="navOrder">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-shopping-cart"></i> Orders <span class="caret"></span></a>
-          <ul class="dropdown-menu">            
-            <li id="topNavAddOrder"><a href="orders.php?o=add"> <i class="glyphicon glyphicon-plus"></i> Add Walk-in Orders</a></li>            
-            <li id="topNavManageOrder"><a href="orders.php?o=manord"> <i class="glyphicon glyphicon-edit"></i> Manage Orders</a></li>            
-          </ul>
-        </li> 
-
-        <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Report </a></li>
-
-        <li class="dropdown" id="navSetting">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="glyphicon glyphicon-user"></i> <span class="caret"></span></a>
-          <ul class="dropdown-menu">            
-            <li id="topNavSetting"><a href="setting.php"> <i class="glyphicon glyphicon-wrench"></i> Setting</a></li>            
-            <li id="topNavLogout"><a href="logout.php"> <i class="glyphicon glyphicon-log-out"></i> Logout</a></li>            
+        <li class='dropdown' id='navSetting'>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
+          <ul class='dropdown-menu'>            
+            <li id='topNavSetting'><a href='setting.php?id=".$row['id']."'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
+            <li id='topNavLogout'><a href='logout.php?id=".$row['id']."'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
           </ul>
         </li>        
                
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-	</nav>
+  </nav>";
+}else {
+  echo "
+    <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>      
 
-	<div class="container">
+      <ul class='nav navbar-nav navbar-right'>        
+
+        <li id='navDashboard'><a href='dashboard.php?id=".$row['id']."'><i class='glyphicon glyphicon-list-alt'></i>  Dashboard</a></li>        
+          
+        <li id='navCategories'><a href='categories.php?id=".$row['id']."'> <i class='glyphicon glyphicon-th-list'></i> Category</a></li>        
+
+        <li id='navProduct'><a href='product.php?id=".$row['id']."'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
+
+        <li class='dropdown' id='navOrder'>
+          <a href='#'' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-shopping-cart'></i> Orders <span class='caret'></span></a>
+          <ul class='dropdown-menu'>            
+            <li id='topNavAddOrder'><a href='orders.php?o=add&id=".$row['id']."'> <i class='glyphicon glyphicon-plus'></i> Add Walk-in Orders</a></li>            
+            <li id='topNavManageOrder'><a href='orders.php?o=manord&id=".$row['id']."'> <i class='glyphicon glyphicon-edit'></i> Manage Orders</a></li>            
+          </ul>
+        </li> 
+
+        <li id='navReport'><a href='report.php?id=".$row['id']."'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
+
+        <li class='dropdown' id='navSetting'>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
+          <ul class='dropdown-menu'>            
+            <li id='topNavSetting'><a href='setting.php?id=".$row['id']."'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
+            <li id='topNavLogout'><a href='logout.php?id=".$row['id']."'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
+          </ul>
+        </li>        
+               
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>";
+}
+?>  
+
+
+  <div class="container">
