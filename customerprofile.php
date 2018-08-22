@@ -80,9 +80,8 @@ while($row = mysqli_fetch_array($results)){
           <div class="col-md-12 form-group" style="margin-top:5px;">
             <br>
             <div class="col-md-3">
-                <button type="submit" class="btn btn-success" name="update_prof">Update Profile</button>
+            <button type="submit" class="btn btn-success" name="update_prof">Update Profile</button>
             </div>
-          </div>
         </form>
       </div>  
     </div>
@@ -113,3 +112,5 @@ while($row = mysqli_fetch_array($results)){
             </form>
           </div>
 </div>
+
+

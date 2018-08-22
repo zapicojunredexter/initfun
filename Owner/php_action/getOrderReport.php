@@ -13,7 +13,13 @@ if($_POST) {
 	$format = DateTime::createFromFormat('m/d/Y',$endDate);
 	$end_date = $format->format("Y-m-d");
 
-	$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
+	
+
+	if($_SESSION['is_admin'] == 1){
+		$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
+	}else{
+		$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1 and owner_id = '".$_SESSION['userId']."'";
+	}
 	$query = $connect->query($sql);
 
 	$table = '

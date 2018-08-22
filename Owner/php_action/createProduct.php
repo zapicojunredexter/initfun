@@ -3,13 +3,12 @@
 require_once 'core.php';
 
 $valid['success'] = array('success' => false, 'messages' => array());
-
 if($_POST) {	
 
 	$productName   = $_POST['productName'];
 	$quantity      = $_POST['quantity'];
 	$rate          = $_POST['rate'];
-	$brandName     = $_POST['brandName'];
+	$brandName     = $_SESSION['userId'];
 	$categoryName  = $_POST['categoryName'];
 	$productStatus = $_POST['productStatus'];
 

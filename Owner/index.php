@@ -35,10 +35,14 @@ if($_POST) {
 			if($mainResult->num_rows == 1) {
 				$value = $mainResult->fetch_object();
 
+
 				// set session
 				$_SESSION['userId'] = $value->id;
-
-				header('location:dashboard.php?id='.$value->id.'');	
+				$_SESSION['is_admin'] = $value->is_admin;
+				$_SESSION['username'] = $value->username;
+				
+				echo $_SESSION['is_admin'];
+				header('location:dashboard.php');	
 			} else{
 				$errors[] = "Incorrect username/password combination";
 			} // /else
@@ -80,7 +84,7 @@ if($_POST) {
 			<div class="col-md-5 col-md-offset-4">
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title">Please Sign in</h3>
+						<h3 class="panel-title">Hello ! Sign in as Owner</h3>
 					</div>
 					<div class="panel-body">
 
@@ -111,6 +115,7 @@ if($_POST) {
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 									  <button type="submit" class="btn btn-default"> <i class="glyphicon glyphicon-log-in"></i> Sign in</button>
+									  <button type="button" class="btn btn-default"><a href="../index.php">Cancel</a></button>
 									</div>
 								</div>
 							</fieldset>

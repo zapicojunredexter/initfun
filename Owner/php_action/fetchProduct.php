@@ -2,12 +2,13 @@
 
 require_once 'core.php';
 
-$sql = "SELECT product.id, product.product_name, product.product_image, product.brand_id,
-	product.categories_id, product.quantity, product.rate, product.active, 
-	brands.brand_name, categories.categories_name FROM product 
-	INNER JOIN brands ON product.brand_id = brands.id 
-	INNER JOIN categories ON product.categories_id = categories.id  
+if($_SESSION['is_admin'] == 1){
+	$sql = "SELECT product.id, product.product_name, product.product_image, product.categories_id, product.quantity, product.rate, product.active, categories.categories_name FROM product INNER JOIN categories ON product.categories_id = categories.id  
 	WHERE product.active = 1";
+}else{
+	$sql = "SELECT product.id, product.product_name, product.product_image, product.categories_id, product.quantity, product.rate, product.active, categories.categories_name FROM product INNER JOIN categories ON product.categories_id = categories.id  
+	WHERE product.active = 1 AND product.brand_id = '".$_SESSION['userId']."' ";
+}
 
 $result = $connect->query($sql);
 
@@ -21,7 +22,7 @@ if($result->num_rows > 0) {
 	while($row = $result->fetch_object()) {
 		$productId = $row->id;
 		// active 
-		if($row->active == 1) {
+		if($row->active == 1 AND $row->quantity > 0) {
 			// activate member
 			$active = "<label class='label label-success'>Available</label>";
 		} else {
@@ -50,9 +51,7 @@ if($result->num_rows > 0) {
 			// rate
 			$row->rate,
 			// quantity 
-			$row->quantity, 		 	
-			// brand
-			$row->brand_name,
+			$row->quantity,
 			// category 		
 			$row->categories_name,
 			// active

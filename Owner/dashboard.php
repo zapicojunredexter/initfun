@@ -2,22 +2,28 @@
 
 require_once 'includes/header.php';
 
+
+
 $sql = "SELECT * FROM product WHERE active = 1";
 $query = $connect->query($sql);
 $countProduct = $query->num_rows;
 
-$orderSql = "SELECT * FROM orders WHERE order_status = 1";
+$orderSql = "SELECT * FROM orders WHERE order_status = 1 AND owner_id = '".$_SESSION['userId']."' ";
 $orderQuery = $connect->query($orderSql);
 $countOrder = $orderQuery->num_rows;
 
 $totalRevenue = "";
 while ($orderResult = $orderQuery->fetch_assoc()) {
-	$totalRevenue += $orderResult['paid'];
+	$totalRevenue += $orderResult['grand_total'];
 }
 
 $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND active = 1";
 $lowStockQuery = $connect->query($lowStockSql);
 $countLowStock = $lowStockQuery->num_rows;
+
+$brandsql = "SELECT * FROM product WHERE brand_id = " . $_SESSION['userId'] ;
+$brandquery = $connect->query($brandsql);
+$counttotalprod = $brandquery->num_rows;
 
 $connect->close();
 
@@ -36,14 +42,13 @@ $connect->close();
 
 
 <div class="row">
-	
 	<div class="col-md-4">
 		<div class="panel panel-success">
 			<div class="panel-heading">
 				
 				<a href="product.php" style="text-decoration:none;color:black;">
 					Total Product
-					<span class="badge pull pull-right"><?php echo $countProduct; ?></span>	
+					<span class="badge pull pull-right"><?php if($_SESSION['is_admin'] == 0){echo $counttotalprod; } else{ echo $countProduct;}?></span>	
 				</a>
 				
 			</div> <!--/panel-hdeaing-->

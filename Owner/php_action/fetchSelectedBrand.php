@@ -2,9 +2,9 @@
 
 require_once 'core.php';
 
-$brandId = $_POST['brandId'];
+$id = $_POST['id'];
 
-$sql = "SELECT * FROM brands WHERE id = $brandId";
+$sql = "SELECT * FROM users WHERE id = {$id}";
 $result = $connect->query($sql);
 
 if($result->num_rows > 0) { 

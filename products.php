@@ -1,7 +1,31 @@
 <?php
+//session_start();
 require_once 'includes/header.php';
 require_once 'Owner/php_action/db_connect.php'; 
 require_once 'functions.php';
+  $db= mysqli_connect('localhost','root','','initfun');
+ 
+  if(isset($_GET['add'])){
+      $id = $_GET['add'];
+      $result = mysqli_query($db, "SELECT * from product WHERE id = $id");
+      $row = mysqli_fetch_array($result);
+      if ($row['quantity'] != $_SESSION['cart_'.$_GET['add']] &&$row['quantity'] > 0) {
+        $_SESSION['cart_'.$_GET['add']]+='1';
+        echo $row['quantity'];
+            header("Location: products.php");
+      }else{
+        echo '<script language="javascript">alert("Stock products are not sufficient!"); document.location="products.php";</script>';
+      }
+  }
+  $i=-2;
+  //if (!empty($_SESSION["cart_"]) && is_array($_SESSION["cart_"])) {
+    foreach($_SESSION as $name => $value){
+      if($value > 0)
+      {
+        $i++;
+      }
+    }
+ // }
 ?>
 
 <!-- header -->
@@ -10,10 +34,9 @@ require_once 'functions.php';
       <nav id="nav-menu-container">
         <ul class="nav-menu">
            <?php 
-          session_start();
           if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
-              $db= mysqli_connect('localhost','root','','initfun');
-              $id = $_GET['id'];
+          
+              $id = $_SESSION['id'];
               $result = mysqli_query($db, "SELECT * from customers WHERE id = $id");
                 while($row = mysqli_fetch_array($result)){
                     $first_name = $row['first_name'];
@@ -25,22 +48,19 @@ require_once 'functions.php';
                     $email = $row['email'];
                     $city_address = $row['city_address'];
                     $permanent_address = $row['permanent_address'];
+                    $wallet = $row['wallet'];
                 }
                 echo"
                 <li><a href='index.php?id=" .$id ."'>Home</a></li>
                 <li class='menu-active'><a href='products.php?id=" .$id ."'>Products</a></li>
-                <li><a href='#''>Bakeshops</a></li>
-                <li><a href='#'>Contact Us</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
-                <li><a href='#'><i class='fa fa-shopping-cart fa-2x'></i></a></li>
-                <li><a href='customerprofile.php?id=" .$id ."'>My Account</a></li>
+                <li><a href='basket.php'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
+                <li><a href='customerprofile.php?id=" .$id ."'>My Account( $wallet)</a></li>
                 <li><a href='logout.php'>Log Out</a></li>";
           } else {  
                 echo"
                 <li><a href='index.php'>Home</a></li>
                 <li class='menu-active'><a href='products.php'>Products</a></li>
-                <li><a href='#''>Bakeshops</a></li>
-                <li><a href='#'>Contact Us</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
                 <li><a href='#' data-toggle='modal' data-target='#myModal_signin'>Sign in</a></li>
                 <li><a href='#' data-toggle='modal' data-target='#myModal_signup'>Sign up</a></li>";
@@ -94,17 +114,22 @@ require_once 'functions.php';
       <div class="container" style="margin-bottom: 40px;">
           <div class="category_content">
             <ul id="product-filter">
-            <!-- <li><button class="btn"><a href='products.php'>All Products</a></button></li> -->
-              <?php 
+            <li><button class="btn"><a href='products.php'>All Products</a></button></li>
+
+              <?php           
                 getcategory();
               ?>
+
             </ul>
           </div>
           <div class="container" style="border: 1px solid; border-radius: 5px; width: 1000px; background: #FFC7002A;">
               <?php
+              if(isset($_GET['cat'])){
                 getcategoryproduct();
+              }else{
+                getallproducts();
+              }
               ?>
-
           </div> 
       </div>
 </section>

@@ -66,7 +66,7 @@ if($_GET['o'] == 'add') {
 			  <div class="form-group">
 			    <label for="orderDate" class="col-sm-2 control-label">Order Date</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="orderDate" name="orderDate" disabled="disabled" autocomplete="off" value="<?php echo date('m/d/20y');?>" readonly="readonly"/>
+			      <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off" value="<?php echo date('m/d/20y');?>" readonly="readonly"/>
 			    </div>
 			  </div> <!--/form-group-->
 			  <div class="form-group">
@@ -103,7 +103,7 @@ if($_GET['o'] == 'add') {
 			  					<select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
 			  						<option value="">~~SELECT~~</option>
 			  						<?php
-			  							$productSql = "SELECT * FROM product WHERE active = 1 AND quantity != 0";
+			  							$productSql = "SELECT * FROM product WHERE active = 1 AND quantity != 0 AND brand_id = '".$_SESSION['userId']."' ";
 			  							$productData = $connect->query($productSql);
 
 			  							while($row = $productData->fetch_array()) {									 		
@@ -184,7 +184,7 @@ if($_GET['o'] == 'add') {
 				    </div>
 				  </div> <!--/form-group-->			  
 				  <div class="form-group">
-				    <label for="due" class="col-sm-3 control-label">Due Amount</label>
+				    <label for="due" class="col-sm-3 control-label">Change</label>
 				    <div class="col-sm-9">
 				      <input type="text" class="form-control" id="due" name="due" disabled="true" />
 				      <input type="hidden" class="form-control" id="dueValue" name="dueValue" />
@@ -239,6 +239,7 @@ if($_GET['o'] == 'add') {
 						<th>Client Name</th>
 						<th>Contact</th>
 						<th>Total Order Item</th>
+						<th>Payment Method</th>
 						<th>Payment Status</th>
 						<th>Option</th>
 					</tr>
@@ -256,8 +257,7 @@ if($_GET['o'] == 'add') {
   		<form class="form-horizontal" method="POST" action="php_action/editOrder.php" id="editOrderForm">
 
   			<?php $orderId = $_GET['i'];
-
-  			$sql = "SELECT orders.id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders WHERE orders.id = {$orderId}";
+  			$sql = "SELECT orders.id, orders.order_date, orders.client_name, orders.client_contact, orders.sub_total, orders.vat, orders.total_amount, orders.discount, orders.grand_total, orders.paid, orders.due, orders.payment_type, orders.payment_status FROM orders WHERE orders.id = {$orderId} AND orders.owner_id = '".$_SESSION['userId']."' ";
 
 				$result = $connect->query($sql);
 				$data = $result->fetch_object();				
@@ -546,8 +546,12 @@ if($_GET['o'] == 'add') {
 </div><!-- /.modal -->
 <!-- /remove order-->
 
-
-<script src="custom/js/order.js"></script>
+<script>
+	$('#orderDate').click(function(){
+		return false;
+	});
+</script>
+<script src="custom/js/order1.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>
 

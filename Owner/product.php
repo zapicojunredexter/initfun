@@ -16,19 +16,23 @@
 			<div class="panel-body">
 
 				<div class="remove-messages"></div>
+				<?php
+					if($_SESSION['is_admin'] == 0){
+						echo "<div class='div-action pull pull-right' style='padding-bottom:20px;'>
+					<button class='btn btn-default button1' data-toggle='modal' id='addProductModalBtn' data-target='#addProductModal'> <i class='glyphicon glyphicon-plus-sign'></i> Add Product </button>
+				</div>";
 
-				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" data-toggle="modal" id="addProductModalBtn" data-target="#addProductModal"> <i class="glyphicon glyphicon-plus-sign"></i> Add Product </button>
-				</div> <!-- /div-action -->				
+					}else echo "";
+				?>
+				 <!-- /div-action -->				
 				
 				<table class="table" id="manageProductTable">
 					<thead>
 						<tr>
 							<th style="width:10%;">Photo</th>							
-							<th>Product Name</th>
+							<th>Product name</th>
 							<th>Rate</th>							
 							<th>Quantity</th>
-							<th>Bakeshop Owner</th>
 							<th>Category</th>
 							<th>Status</th>
 							<th style="width:15%;">Options</th>
@@ -95,24 +99,25 @@
 				    </div>
 	        </div> <!-- /form-group-->	     	        
 
-	        <div class="form-group">
+ 	      <!--   <div class="form-group">
 	        	<label for="brandName" class="col-sm-3 control-label">Brand Name: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
 				      <select class="form-control" id="brandName" name="brandName">
 				      	<option value="">~~SELECT~~</option>
 				      	<?php 
-				      	$sql = "SELECT * FROM brands WHERE brand_active = 1";
-								$result = $connect->query($sql);
+				      	//$sql = "SELECT * FROM users WHERE is_admin = 0";
+								//$result = $connect->query($sql);
 
-								while($row = $result->fetch_object()) {
-									echo "<option value='".$row->id."'>".$row->brand_name."</option>";
-								} // while
+								//while($row = $result->fetch_object()) {
+									//echo "<option value='".$row->id."'>".$row->username."</option>";
+								//} 
 								
 				      	?>
 				      </select>
 				    </div>
-	        </div> <!-- /form-group-->	
+	        </div>  -->
+	        <!-- /form-group -->	
 
 	        <div class="form-group">
 	        	<label for="categoryName" class="col-sm-3 control-label">Category Name: </label>
@@ -121,7 +126,7 @@
 				      <select type="text" class="form-control" id="categoryName" placeholder="Product Name" name="categoryName" >
 				      	<option value="">~~SELECT~~</option>
 				      	<?php 
-				      	$sql = "SELECT * FROM categories WHERE categories_active = 1";
+				      	$sql = "SELECT * FROM categories WHERE categories_active = 1 AND owner_id = '".$_SESSION['userId']."'";
 								$result = $connect->query($sql);
 
 								while($row = $result->fetch_object()) {
@@ -251,23 +256,24 @@
 						    </div>
 			        </div> <!-- /form-group-->	     	        
 
-			        <div class="form-group">
+			    <!--     <div class="form-group">
 			        	<label for="editBrandName" class="col-sm-3 control-label">Brand Name: </label>
 			        	<label class="col-sm-1 control-label">: </label>
 						    <div class="col-sm-8">
 						      <select class="form-control" id="editBrandName" name="editBrandName">
 						      	<option value="">~~SELECT~~</option>
 						      	<?php 
-						      	$sql = "SELECT * FROM brands WHERE brand_active = 1";
-										$result = $connect->query($sql);
+						      	//$sql = "SELECT * FROM brands WHERE brand_active = 1";
+										//$result = $connect->query($sql);
 
-										while($row = $result->fetch_object()) {
-											echo "<option value='".$row->id."'>".$row->brand_name."</option>";
-										} // while
+										//while($row = $result->fetch_object()) {
+										//	echo "<option value='".$row->id."'>".$row->brand_name."</option>";
+										//}
 						      	?>
 						      </select>
 						    </div>
-			        </div> <!-- /form-group-->	
+			        </div> --> 
+			        <!-- /form-group-->	
 
 			        <div class="form-group">
 			        	<label for="editCategoryName" class="col-sm-3 control-label">Category Name: </label>
@@ -281,12 +287,13 @@
 
 										while($row = $result->fetch_object()) {
 											echo "<option value='".$row->id."'>".$row->categories_name."</option>";
-										} // while
+										} 
 										
 						      	?>
 						      </select>
 						    </div>
-			        </div> <!-- /form-group-->					        	         	       
+			        </div>
+			         <!-- /form-group-->					        	         	       
 
 			        <div class="form-group">
 			        	<label for="editProductStatus" class="col-sm-3 control-label">Status: </label>
@@ -346,6 +353,6 @@
 <!-- /categories brand -->
 
 
-<script src="custom/js/product.js"></script>
+<script src="custom/js/product4.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>

@@ -1,6 +1,5 @@
 <?php require_once 'includes/header.php'; ?>
 
-
 <div class="row">
 	<div class="col-md-12">
 
@@ -23,9 +22,17 @@
 				
 				<table class="table" id="manageBrandTable">
 					<thead>
-						<tr>							
-							<th>Bakeshop</th>
-							<th>Status</th>
+						<tr>
+							<th>id</th>		
+							<th>firstname</th>							
+							<th>middlename</th>
+							<th>lastname</th>
+							<th>username</th>
+							<th>gender</th>
+							<th>address</th>
+							<th>dateofbirth</th>
+							<th>phonenumber</th>
+							<th>email</th>
 							<th style="width:15%;">Options</th>
 						</tr>
 					</thead>
@@ -49,25 +56,78 @@
 	      <div class="modal-body">
 
 	      	<div id="add-brand-messages"></div>
+	      	<!-- firstname -->
+			<div class="form-group">
+	        	<label for="first_name" class="col-sm-3 control-label">First Name: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="first_name" placeholder="First Name" name="first_name" autocomplete="off">
+				    </div>
+	        </div>
 
-	        <div class="form-group">
-	        	<label for="brandName" class="col-sm-3 control-label">Bakeshop Name: </label>
+			<div class="form-group">
+	        	<label for="middle_name" class="col-sm-3 control-label">Middle Name: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="brandName" placeholder="Brand Name" name="brandName" autocomplete="off">
+				      <input type="text" class="form-control" id="middle_name" placeholder="Middle Name" name="middle_name" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	         	        
-	        <div class="form-group">
-	        	<label for="brandStatus" class="col-sm-3 control-label">Status: </label>
+	        </div>
+	         <!-- /form-group-->	   	
+			<div class="form-group">
+	        	<label for="last_name" class="col-sm-3 control-label">Last Name: </label>
 	        	<label class="col-sm-1 control-label">: </label>
 				    <div class="col-sm-8">
-				      <select class="form-control" id="brandStatus" name="brandStatus">
-				      	<option value="">~~SELECT~~</option>
-				      	<option value="1">Available</option>
-				      	<option value="2">Not Available</option>
-				      </select>
+				      <input type="text" class="form-control" id="last_name" placeholder="Last Name" name="last_name" autocomplete="off">
 				    </div>
-	        </div> <!-- /form-group-->	         	        
+	        </div>        	        
+
+			<div class="form-group">
+	        	<label for="username" class="col-sm-3 control-label">UserName: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="username" placeholder="Username" name="username" autocomplete="off">
+				    </div>
+	        </div>
+
+			<div class="form-group">
+	        	<label for="gender" class="col-sm-3 control-label">Gender: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender" autocomplete="off">
+				    </div>
+	        </div>
+
+			<div class="form-group">
+	        	<label for="address" class="col-sm-3 control-label">Establishment Address: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="address" placeholder="Establishment Address" name="address" autocomplete="off">
+				    </div>
+	        </div>
+
+			<div class="form-group">
+	        	<label for="date_of_birth" class="col-sm-3 control-label">Owner's Date of Birth: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="date" class="form-control" id="date_of_birth" placeholder="Owner's Date of Birth" name="date_of_birth" autocomplete="off">
+				    </div>
+	        </div>
+
+			<div class="form-group">
+	        	<label for="phone_number" class="col-sm-3 control-label">Owner's Phone Number: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="phone_number" placeholder="Owner's Phone Number" name="phone_number" autocomplete="off">
+				    </div>
+	        </div>
+
+			<div class="form-group">
+	        	<label for="email" class="col-sm-3 control-label">Owner's email: </label>
+	        	<label class="col-sm-1 control-label">: </label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="email" placeholder="Owner's Email" name="email" autocomplete="off">
+				    </div>
+	        </div>
 
 	      </div> <!-- /modal-body -->
 	      
@@ -105,26 +165,88 @@
 						<span class="sr-only">Loading...</span>
 					</div>
 
-		      <div class="edit-brand-result">
+			<div class="edit-brand-result">
 		      	<div class="form-group">
-		        	<label for="editBrandName" class="col-sm-3 control-label">Bakeshop Name: </label>
+		        	<label for="editFirst_name" class="col-sm-3 control-label">First Name: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-					      <input type="text" class="form-control" id="editBrandName" placeholder="Brand Name" name="editBrandName" autocomplete="off">
+					      <input type="text" class="form-control" id="editFirst_name" placeholder="First Name" name="editFirst_name" autocomplete="off">
 					    </div>
-		        </div> <!-- /form-group-->	         	        
-		        <div class="form-group">
-		        	<label for="editBrandStatus" class="col-sm-3 control-label">Status: </label>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editMiddle_name" class="col-sm-3 control-label">Middle Name: </label>
 		        	<label class="col-sm-1 control-label">: </label>
 					    <div class="col-sm-8">
-					      <select class="form-control" id="editBrandStatus" name="editBrandStatus">
-					      	<option value="">~~SELECT~~</option>
-					      	<option value="1">Available</option>
-					      	<option value="2">Not Available</option>
-					      </select>
+					      <input type="text" class="form-control" id="editMiddle_name" placeholder="Middle Name" name="editMiddle_name" autocomplete="off">
 					    </div>
-		        </div> <!-- /form-group-->	
-		      </div>         	        
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editLast_name" class="col-sm-3 control-label">Last Name: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editLast_name" placeholder="Last Name" name="editLast_name" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editUsername" class="col-sm-3 control-label">User Name: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editUsername" placeholder="User Name" name="editUsername" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editGender" class="col-sm-3 control-label">Gender: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editGender" placeholder="Gender" name="editGender" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editAddress" class="col-sm-3 control-label">Establishment Address: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editAddress" placeholder="Establishment Address" name="editAddress" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editDate_of_birth" class="col-sm-3 control-label">Owner's Date of Birth: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="date" class="form-control" id="editDate_of_birth" placeholder="Owner's Date of Birth" name="editDate_of_birth" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editPhone_number" class="col-sm-3 control-label">Owner's Phone Number: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editPhone_number" placeholder="Owner's Phone Number" name="editPhone_number" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    <div class="edit-brand-result">
+		      	<div class="form-group">
+		        	<label for="editEmail" class="col-sm-3 control-label">Owner's Email: </label>
+		        	<label class="col-sm-1 control-label">: </label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" id="editEmail" placeholder="Owner's Email" name="editEmail" autocomplete="off">
+					    </div>
+		    	</div> 
+		    </div>
+		    
 		      <!-- /edit brand result -->
 
 	      </div> <!-- /modal-body -->
@@ -165,6 +287,6 @@
 </div><!-- /.modal -->
 <!-- /remove brand -->
 
-<script src="custom/js/brand.js"></script>
+<script src="custom/js/brand2.js"></script>
 
 <?php require_once 'includes/footer.php'; ?>

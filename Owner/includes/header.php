@@ -51,31 +51,29 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
   <?php
-    $id = $_GET['id'];
-    $query = "SELECT * from users where id = '$id'";
+    $query = "SELECT * from users where id = '".$_SESSION['userId']."'";
     $result = mysqli_query($connect, $query);
     $row = mysqli_fetch_assoc($result);
+    $user = $_SESSION['username'];
       if($row['is_admin'] == 1){
     echo "
     <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>      
 
       <ul class='nav navbar-nav navbar-right'>        
 
-        <li id='navDashboard'><a href='dashboard.php?id=".$row['id']."'><i class='glyphicon glyphicon-list-alt'></i>  Dashboard</a></li>        
-          
-        <li id='navBrand'><a href='brand.php?id=".$row['id']."'><i class='glyphicon glyphicon-user'></i> Bakeshops </a></li>
-            
-        <li id='navCategories'><a href='categories.php?id=".$row['id']."'> <i class='glyphicon glyphicon-th-list'></i> Category</a></li>        
+        <li id='navDashboard'><a href='dashboard.php'><i class='glyphicon glyphicon-list-alt'></i> Home</a></li>
 
-        <li id='navProduct'><a href='product.php?id=".$row['id']."'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
+        <li id='navBrand'><a href='brand.php'> <i class='glyphicon glyphicon-th-list'></i> Bakeshops</a></li>               
 
-        <li id='navReport'><a href='report.php?id=".$row['id']."'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
+        <li id='navProduct'><a href='product.php'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
+
+        <li id='navReport'><a href='report.php'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
 
         <li class='dropdown' id='navSetting'>
-          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Hello, $user <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
           <ul class='dropdown-menu'>            
-            <li id='topNavSetting'><a href='setting.php?id=".$row['id']."'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
-            <li id='topNavLogout'><a href='logout.php?id=".$row['id']."'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
+            <li id='topNavSetting'><a href='setting.php'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
+            <li id='topNavLogout'><a href='logout.php'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
           </ul>
         </li>        
                
@@ -89,27 +87,27 @@
 
       <ul class='nav navbar-nav navbar-right'>        
 
-        <li id='navDashboard'><a href='dashboard.php?id=".$row['id']."'><i class='glyphicon glyphicon-list-alt'></i>  Dashboard</a></li>        
+        <li id='navDashboard'><a href='dashboard.php'><i class='glyphicon glyphicon-list-alt'></i>  Dashboard</a></li>        
           
-        <li id='navCategories'><a href='categories.php?id=".$row['id']."'> <i class='glyphicon glyphicon-th-list'></i> Category</a></li>        
+        <li id='navCategories'><a href='categories.php'> <i class='glyphicon glyphicon-th-list'></i> Category</a></li>        
 
-        <li id='navProduct'><a href='product.php?id=".$row['id']."'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
+        <li id='navProduct'><a href='product.php'> <i class='glyphicon glyphicon-ruble'></i> Product </a></li>     
 
         <li class='dropdown' id='navOrder'>
           <a href='#'' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-shopping-cart'></i> Orders <span class='caret'></span></a>
           <ul class='dropdown-menu'>            
-            <li id='topNavAddOrder'><a href='orders.php?o=add&id=".$row['id']."'> <i class='glyphicon glyphicon-plus'></i> Add Walk-in Orders</a></li>            
-            <li id='topNavManageOrder'><a href='orders.php?o=manord&id=".$row['id']."'> <i class='glyphicon glyphicon-edit'></i> Manage Orders</a></li>            
+            <li id='topNavAddOrder'><a href='orders.php?o=add'> <i class='glyphicon glyphicon-plus'></i> Add Walk-in Orders</a></li>            
+            <li id='topNavManageOrder'><a href='orders.php?o=manord'> <i class='glyphicon glyphicon-edit'></i> Manage Orders</a></li>            
           </ul>
         </li> 
 
-        <li id='navReport'><a href='report.php?id=".$row['id']."'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
+        <li id='navReport'><a href='report.php'> <i class='glyphicon glyphicon-check'></i> Report </a></li>
 
         <li class='dropdown' id='navSetting'>
-          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Hello, $user <i class='glyphicon glyphicon-user'></i> <span class='caret'></span></a>
           <ul class='dropdown-menu'>            
-            <li id='topNavSetting'><a href='setting.php?id=".$row['id']."'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
-            <li id='topNavLogout'><a href='logout.php?id=".$row['id']."'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
+            <li id='topNavSetting'><a href='setting.php'> <i class='glyphicon glyphicon-wrench'></i> Setting</a></li>            
+            <li id='topNavLogout'><a href='logout.php'> <i class='glyphicon glyphicon-log-out'></i> Logout</a></li>            
           </ul>
         </li>        
                

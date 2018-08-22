@@ -5,11 +5,11 @@ require_once 'core.php';
 
 $valid['success'] = array('success' => false, 'messages' => array());
 
-$brandId = $_POST['brandId'];
+$id = $_POST['id'];
 
-if($brandId) { 
+if($id) { 
 
-	$sql = "UPDATE brands SET brand_active = 2 WHERE id = {$brandId}";
+	$sql = "DELETE from users WHERE id = {$id}";
 
 	if($connect->query($sql) === TRUE) {
 		$valid['success'] = true;

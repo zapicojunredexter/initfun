@@ -1,5 +1,14 @@
 <?php 
 require_once 'includes/header.php';
+ $i=-2;
+  //if (!empty($_SESSION["cart_"]) && is_array($_SESSION["cart_"])) {
+    foreach($_SESSION as $name => $value){
+      if($value > 0)
+      {
+        $i++;
+      }
+    }
+ // }
 ?>
 
 <!-- Header -->
@@ -8,10 +17,9 @@ require_once 'includes/header.php';
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <?php 
-          session_start();
           if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
               $db= mysqli_connect('localhost','root','','initfun');
-              $id = $_GET['id'];
+              $id = $_SESSION['id'];
               $result = mysqli_query($db, "SELECT * from customers WHERE id = $id");
                 while($row = mysqli_fetch_array($result)){
                     $first_name = $row['first_name'];
@@ -23,22 +31,19 @@ require_once 'includes/header.php';
                     $email = $row['email'];
                     $city_address = $row['city_address'];
                     $permanent_address = $row['permanent_address'];
+                    $wallet = $row['wallet'];
                 }
                 echo"
                 <li class='menu-active'><a href='index.php?id=" .$id ."'>Home</a></li>
                 <li><a href='products.php?id=" .$id ."'>Products</a></li>
-                <li><a href='#''>Bakeshops</a></li>
-                <li><a href='#'>Contact Us</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
-                <li><a href='#'><i class='fa fa-shopping-cart fa-2x'></i></a></li>
-                <li><a href='customerprofile.php?id=" .$id ."'>My Account</a></li>
+                <li><a href='basket.php'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
+                <li><a href='customerprofile.php?id=" .$id ."'>My Account($wallet)</a></li>
                 <li><a href='logout.php'>Log Out</a></li>";
           } else {  
                 echo"
                 <li class='menu-active'><a href='index.php'>Home</a></li>
                 <li><a href='products.php'>Products</a></li>
-                <li><a href='#''>Bakeshops</a></li>
-                <li><a href='#'>Contact Us</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
                 <li><a href='#' data-toggle='modal' data-target='#myModal_signin'>Sign in</a></li>
                 <li><a href='#' data-toggle='modal' data-target='#myModal_signup'>Sign up</a></li>";
@@ -69,7 +74,7 @@ require_once 'includes/header.php';
               <img src="img/welcome_logo.png" width="300" height="200"></img>
               <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
               $db = mysqli_connect('localhost','root','','initfun');
-              $id = $_GET['id'];
+
               $result = mysqli_query($db, "SELECT * from customers WHERE id = $id");
                 while($row = mysqli_fetch_array($result)){
                     $first_name = $row['first_name'];
@@ -161,7 +166,7 @@ require_once 'includes/header.php';
       <div class="modal-body" style="padding: 15px 0px;">
         <div class="sign-in">
           <button class="btn btn-sign-in"><a href="login.php">Signin as Buyer</a></button> or
-          <button class="btn btn-sign-in"><a href="#">Signin as Owner</a></button>
+          <button class="btn btn-sign-in"><a href="Owner/index.php">Signin as Owner</a></button>
         </div>
       </div>
       <div class="modal-footer">
@@ -181,7 +186,7 @@ require_once 'includes/header.php';
       <div class="modal-body" style="padding: 15px 0px;">
         <div class="sign-in">
           <button class="btn btn-sign-in"><a href="sign-up.php">Signup as Buyer</a></button> or
-          <button class="btn btn-sign-in"><a href="#">Signup as Owner</a></button>
+          <button class="btn btn-sign-in"><a href="sign-up-owner.php">Signup as Owner</a></button>
         </div>
       </div>
       <div class="modal-footer">

@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT * FROM categories WHERE categories_active = 1";
+$sql = "SELECT * FROM categories WHERE categories_active = 1 AND owner_id = '".$_SESSION['userId']."'";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -15,7 +15,7 @@ if($result->num_rows > 0) {
 	while($row = $result->fetch_array()) {
 		$categoriesId = $row[0];
 		// active 
-		if($row[2] == 1) {
+		if($row[3] == 1) {
 			// activate member
 			$activeCategories = "<label class='label label-success'>Available</label>";
 		} else {
@@ -35,7 +35,7 @@ if($result->num_rows > 0) {
 			</div>';
 
 		$output['data'][] = array( 		
-			$row[1], 		
+			$row[2], 		
 			$activeCategories,
 			$button 		
 		); 	

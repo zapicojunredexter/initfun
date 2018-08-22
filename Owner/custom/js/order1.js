@@ -608,7 +608,7 @@ function discountFunc() {
 
  	var dueAmount; 	
  	if(paid) {
- 		dueAmount = Number($("#grandTotal").val()) - Number($("#paid").val());
+ 		dueAmount = Number($("#paid").val()) - Number($("#grandTotal").val());
  		dueAmount = dueAmount.toFixed(2);
 
  		$("#due").val(dueAmount);
@@ -624,7 +624,7 @@ function paidAmount() {
 	var grandTotal = $("#grandTotal").val();
 
 	if(grandTotal) {
-		var dueAmount = Number($("#grandTotal").val()) - Number($("#paid").val());
+		var dueAmount = Number($("#paid").val()) - Number($("#grandTotal").val());
 		dueAmount = dueAmount.toFixed(2);
 		$("#due").val(dueAmount);
 		$("#dueValue").val(dueAmount);

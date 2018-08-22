@@ -2,7 +2,7 @@
 
 require_once 'core.php';
 
-$sql = "SELECT * FROM orders WHERE order_status = 1";
+$sql = "SELECT * FROM orders WHERE order_status = 1 AND owner_id =  '".$_SESSION['userId']."' ";
 $result = $connect->query($sql);
 
 $output = array('data' => array());
@@ -27,6 +27,15 @@ if($result->num_rows > 0) {
 			$paymentStatus = "<label class='label label-warning'>No Payment</label>";
 		} // /else
 
+		if ($row->payment_type == 1){
+			$paymentMethod = "Cheque";
+		}else if($row->payment_type == 2){
+			$paymentMethod = "Cash";
+		}else if($row->payment_type == 3){
+			$paymentMethod = "Online Payment";
+		}else{
+			$paymentMethod = "Credit Card";
+		}
 		$button = '<!-- Single button -->
 			<div class="btn-group">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,8 +43,6 @@ if($result->num_rows > 0) {
 			</button>
 			<ul class="dropdown-menu">
 			<li><a href="orders.php?o=editOrd&i='.$orderId.'" id="editOrderModalBtn"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
-
-			<li><a type="button" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="glyphicon glyphicon-save"></i> Payment</a></li>
 
 			<li><a type="button" onclick="printOrder('.$orderId.')"> <i class="glyphicon glyphicon-print"></i> Print </a></li>
 
@@ -53,6 +60,7 @@ if($result->num_rows > 0) {
 			// client contact
 			$row->client_contact, 		 	
 			$itemCountRow, 		 	
+			$paymentMethod,
 			$paymentStatus,
 			// button
 			$button 		
@@ -65,3 +73,6 @@ if($result->num_rows > 0) {
 $connect->close();
 
 echo json_encode($output);
+
+
+			// <li><a type="button" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="glyphicon glyphicon-save"></i> Payment</a></li>
