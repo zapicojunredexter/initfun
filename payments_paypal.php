@@ -5,12 +5,6 @@
 $enableSandbox = true;
 
 // Database settings. Change these for your database configuration.
-$dbConfig = [
-	'host' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'name' => 'example_database'
-];
 
 // PayPal settings. Change these to your account details and the relevant URLs
 // for your site.
@@ -35,11 +29,9 @@ $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 
 // Product being purchased.
 //$itemName = 'Test Item';
 //$itemAmount = 5.00;
-$itemNames = ['Zapico Item','Zapico Item 1'];
-$itemAmounts = [5.00,10.00];
 
 // Include Functions
-require 'functions.php';
+require 'functions_paypal.php';
 
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
@@ -67,12 +59,13 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
 	$data['item_name'] = $_POST['item_name'];
-	$data['amount'] = 155.00;
-	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
-	// $data['amount_2'] = 175.00;
-
-	$data['tax_rate'] = 13;
+	$data['amount'] = 5.00;
+	$data['quantity'] = 10;
 	$data['currency_code'] = 'PHP';
+
+	echo $data['item_name'];
+	echo $data['amount'];
+	echo $data['quantity'];
 
 	// Add any custom fields for the query string.
 	//$data['custom'] = USERID;
@@ -81,23 +74,23 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$queryString = http_build_query($data);
 
 	// Redirect to paypal IPN
-	print_r($queryString);
+	//print_r($queryString);
 	header('location:' . $paypalUrl . '?' . $queryString);
-	exit();
+	//exit();
 } else {
 	// Handle the PayPal response.
 
-	/*
+	
     $fp = fopen('zzzzz.txt', 'w');
     fwrite($fp, '1');
     fwrite($fp, '23');
 	fclose($fp);
 	
 
-	// Create a connection to the database.
+	//Create a connection to the database.
 	$db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
 
-	// Assign posted variables to local data array.
+	//Assign posted variables to local data array.
 	$data = [
 		'item_name' => $_POST['item_name'],
 		'item_number' => $_POST['item_number'],
@@ -115,9 +108,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	return;
 	if (verifyTransaction($_POST) && checkTxnid($data['txn_id'])) {
 		if (addPayment($data) !== false) {
-			// Payment successfully added.
+			// successfully added.
 		}
 	}
-	
-*/
 }

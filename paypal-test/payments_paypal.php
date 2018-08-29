@@ -66,12 +66,12 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// and currency so that these aren't overridden by the form data.
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
-	$data['item_name'] = $_POST['item_name'];
-	$data['amount'] = 155.00;
-	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
-	// $data['amount_2'] = 175.00;
-
-	$data['tax_rate'] = 13;
+	$data['item_name'] = 'akoi nagset ani nga item';
+	$data['amount'] = 5.00;
+	$data['item_name_1'] = 'akoi nagset ani nga sad ';
+	$data['amount_1'] = 155.00;
+	$data['item_name_2'] = 'akoi nagset ani nga 2 ';
+	$data['amount_2'] = 175.00;
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
@@ -82,7 +82,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
 	// Redirect to paypal IPN
 	print_r($queryString);
-	header('location:' . $paypalUrl . '?' . $queryString);
+	// header('location:' . $paypalUrl . '?' . $queryString);
 	exit();
 } else {
 	// Handle the PayPal response.

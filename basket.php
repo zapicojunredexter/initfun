@@ -95,6 +95,7 @@ require_once 'functions.php';
 							<?php
 								$i=0;
 								$total = 0;
+								$itemqty = 0;
 							    foreach($_SESSION as $name => $value){
 							        if($value > 0) {
 							        	if(substr($name, 0, 5) == 'cart_'){
@@ -112,7 +113,8 @@ require_once 'functions.php';
 		    								echo "<td>".$data3['rate']."</td>";
 		    								echo "<td>".$value."</td>";
 		    								echo '<td><a href="basket.php?add='.$data3['id'].'"><i class="fa fa-plus"></i></a> | <a href="basket.php?remove='.$data3['id'].'"><i class="fa fa-minus"></i></a> | <a href="basket	.php?delete='.$data3['id'].'"><i class="fa fa-times"></i></a></td>';
-		    								echo "</tr>";
+											echo "</tr>";
+											$itemqty = $value;
                                         }
 							        	
 							        }
@@ -148,10 +150,67 @@ require_once 'functions.php';
 					</table>
 					<?php 
 						if($total != 0){
-							echo '<div class="btn btn-default" style="margin-top: 0px; margin-bottom: 20px; width: 300px !important"><a href="checkout.php"?> Proceed to Checkout</a></div>';
+							
+							echo '
+							<div style="padding-bottom:10px;">
+							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+							<!--
+							<input type="hidden" name="cmd" value="_xclick" />
+							-->
+       						<input type="hidden" name="upload" value="1">
+							<input type="hidden" name="cmd" value="_xclick">
+							<input type="hidden" name="no_note" value="1" />
+							<input type="hidden" name="lc" value="UK" />
+							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+							<input type="hidden" name="first_name" value="Customer first" />
+							<input type="hidden" name="last_name" value="Customer last" />
+							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
+							<input type="hidden" name="item_name" value="'.$data3['product_name'].'" />
+							<input type="hidden" name="item_number" value="123456" / >
+							<input type="submit" name="submit" value="Submit justine"/>
+						</form>
+							</div>';
 						}
-
+						
 					?>
+					
+					<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+							<!--
+							<input type="hidden" name="cmd" value="_xclick" />
+							-->
+        <input type="hidden" name="upload" value="1">
+							<input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="no_note" value="1" />
+							<input type="hidden" name="lc" value="UK" />
+							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+							<input type="hidden" name="first_name" value="Customer First Name" />
+							<input type="hidden" name="last_name" value="Customer Last Name" />
+							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
+							<input type="hidden" name="item_name" value="dataddssss" />
+							<input type="hidden" name="item_number" value="123456" / >
+							<input type="submit" name="submit" value="Submit zxc"/>
+
+
+						</form>
+			
+							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+        <!--
+        <input type="hidden" name="cmd" value="_xclick" />
+        -->
+        <input type="hidden" name="upload" value="1">
+
+        <input type="hidden" name="cmd" value="_cart">
+        <input type="hidden" name="no_note" value="1" />
+        <input type="hidden" name="lc" value="UK" />
+        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+        <input type="hidden" name="first_name" value="Customer's First Name" />
+        <input type="hidden" name="last_name" value="Customer's Last Name" />
+        <input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
+        <input type="hidden" name="item_number" value="123456" / >
+        <input type="hidden" name="item_number_1" value="234567" / >
+        <input type="hidden" name="item_number_2" value="234567" / >
+        <input type="submit" name="submit" value="working" />
+    </form>
 					</div>
 					</div>
 			<!-- 	</div>
