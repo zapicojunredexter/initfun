@@ -40,6 +40,7 @@ if($_POST) {
 				$_SESSION['userId'] = $value->id;
 				$_SESSION['is_admin'] = $value->is_admin;
 				$_SESSION['username'] = $value->username;
+				$_SESSION['account_expiration'] = $value->account_expiration;
 				
 				echo $_SESSION['is_admin'];
 				header('location:dashboard.php');	

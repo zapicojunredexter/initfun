@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paypal Integration Test</title>
+</head>
+<body>
+
+    <form class="paypal" action="subscription_payments.php" method="post" id="paypal_form">
+        <input type="hidden" name="cmd" value="_xclick" />
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="no_note" value="1" />
+        <input type="hidden" name="lc" value="UK" />
+        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+        <select name="item_name">
+            <option value="6 Months Subscription">6 Months Subscription</option>
+            <option value="12 Months Subscription">12 Months Subscription</option>
+        </select>
+        <input type="submit" name="submit" value="Submit Payment"/>
+    </form>
+
+</body>
+</html>

@@ -86,6 +86,21 @@ $connect->close();
 					</fieldset>
 				</form>
 
+
+
+				<?php
+					if($result->account_expiration!=="-")
+					{
+				?>
+				account will expire on <?php echo $result->account_expiration?><br>
+				click <a href="http://localhost/initfun/paypal/subscription/subscription_index.html">here</a> to renew
+				<?php
+					}
+				?>
+
+
+
+
 			</div> <!-- /panel-body -->		
 
 		</div> <!-- /panel -->		
