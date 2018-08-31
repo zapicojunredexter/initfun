@@ -3,6 +3,14 @@
 require_once 'includes/header.php';
 require_once 'Owner/php_action/db_connect.php'; 
 require_once 'functions.php';
+//Class Item with name and price as properties
+class Item {
+	public $itemNo = 12345;
+	public $name;
+	public $price;
+	public $quantity;
+}
+$items = [];  //Initialization of array
   $db= mysqli_connect('localhost','root','','initfun');
 	 if(isset($_GET['add'])){
 	      $id = $_GET['add'];
@@ -114,11 +122,17 @@ require_once 'functions.php';
 		    								echo "<td>".$value."</td>";
 		    								echo '<td><a href="basket.php?add='.$data3['id'].'"><i class="fa fa-plus"></i></a> | <a href="basket.php?remove='.$data3['id'].'"><i class="fa fa-minus"></i></a> | <a href="basket	.php?delete='.$data3['id'].'"><i class="fa fa-times"></i></a></td>';
 											echo "</tr>";
-											$itemqty = $value;
+											//Creating an array of object
+											$items[$i] = new Item();
+											$items[$i]->name = $data3['product_name'];
+											$items[$i]->price = $data3['rate'];
+											$items[$i]->quantity = $value;
+											$i++;
                                         }
 							        	
 							        }
-							    }
+								}
+								$i = 0;
 							?>
 							
 							<!-- <td>adsfsd</td>
@@ -151,22 +165,47 @@ require_once 'functions.php';
 					<?php 
 						if($total != 0){
 							
+						// 	echo '
+						// 	<div style="padding-bottom:10px;">
+						// 	<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+						// 	<!--
+						// 	<input type="hidden" name="cmd" value="_xclick" />
+						// 	-->
+       					// 	<input type="hidden" name="upload" value="1">
+						// 	<input type="hidden" name="cmd" value="_xclick">
+						// 	<input type="hidden" name="no_note" value="1" />
+						// 	<input type="hidden" name="lc" value="UK" />
+						// 	<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+						// 	<input type="hidden" name="first_name" value="Customer first" />
+						// 	<input type="hidden" name="last_name" value="Customer last" />
+						// 	<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
+						// 	<input type="hidden" name="item_name" value="'.$data3['product_name'].'" />
+						// 	<input type="hidden" name="item_number" value="123456" / >
+						// 	<input type="submit" name="submit" value="Submit justine"/>
+						// </form>
+						// 	</div>';
+
 							echo '
 							<div style="padding-bottom:10px;">
 							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
-							<!--
-							<input type="hidden" name="cmd" value="_xclick" />
-							-->
        						<input type="hidden" name="upload" value="1">
-							<input type="hidden" name="cmd" value="_xclick">
+							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="no_note" value="1" />
 							<input type="hidden" name="lc" value="UK" />
 							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
 							<input type="hidden" name="first_name" value="Customer first" />
 							<input type="hidden" name="last_name" value="Customer last" />
-							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
-							<input type="hidden" name="item_name" value="'.$data3['product_name'].'" />
-							<input type="hidden" name="item_number" value="123456" / >
+							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />';
+							foreach($items as $item){
+								echo 
+								'<input type="hidden" name="item_name_'.strval($i+1).'" value="'.$item->name.'" />
+								<input type="hidden" name="amount_'.strval($i+1).'" value="'.$item->price.'" />
+								<input type="hidden" name="quantity_'.strval($i+1).'" value="'.$item->quantity.'" />';
+								$i++;
+							}
+							echo '
+							<input type="hidden" name="counter" value="'.$i.'" />
+							<input type="hidden" name="tax" value="'.$total.'" />
 							<input type="submit" name="submit" value="Submit justine"/>
 						</form>
 							</div>';

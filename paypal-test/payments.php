@@ -35,8 +35,10 @@ $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 
 // Product being purchased.
 //$itemName = 'Test Item';
 //$itemAmount = 5.00;
-$itemNames = ['Zapico Item','Zapico Item 1'];
-$itemAmounts = [5.00,10.00];
+//$itemNames = ['Zapico Item','Zapico Item 1'];
+//$itemAmounts = [5.00,10.00];
+$counter = (int)$_POST['counter'];
+$tax = (float)$_POST['tax'];
 
 // Include Functions
 require 'functions.php';
@@ -66,12 +68,18 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// and currency so that these aren't overridden by the form data.
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
-	$data['item_name'] = $_POST['item_name'];
-	$data['amount'] = 155.00;
+	// $data['item_name'] = $_POST['item_name'];
+	// $data['amount'] = 155.00;
 	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
 	// $data['amount_2'] = 175.00;
+	
+	for($i = 0 ; $i < $counter ; $i++){
+		$data['item_name_'.strval($i+1)] = $_POST['item_name_'.strval($i+1)];
+		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
+		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
+	}
 
-	$data['tax_rate'] = 13;
+	$data['tax_cart'] = $tax * 0.13;
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
