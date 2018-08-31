@@ -3,31 +3,16 @@
 // For test payments we want to enable the sandbox mode. If you want to put live
 // payments through then this setting needs changing to `false`.
 $enableSandbox = true;
-
-// Database settings. Change these for your database configuration.
-$dbConfig = [
-	'host' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'name' => 'example_database'
-];
-
 // PayPal settings. Change these to your account details and the relevant URLs
 // for your site.
-/*
-$paypalConfig = [
-	'email' => 'zapicojunredexter-facilitator@gmail.com',
-	'return_url' => 'http://localhost/paypal-example/payment-successful.html',
-	'cancel_url' => 'http://localhost/paypal-example/payment-cancelled.html',
-	'notify_url' => 'http://localhost/paypal-example/payments.php'
-];
-*/
 
 $paypalConfig = [
 	'email' => 'zapicojunredexter-facilitator@gmail.com',
+	//'return_url' => 'http://localhost/InitFun/paypal/subscription/subscription_success.php?duration='.$_POST['item_name'],
 	'return_url' => 'http://localhost/InitFun/paypal-test/payment-successful.html',
 	'cancel_url' => 'http://localhost/InitFun/paypal-test/payment-cancelled.html',
-	'notify_url' => 'http://localhost/InitFun/paypal-test/mytestdb.php'
+	// 'notify_url' => 'http://localhost/InitFun/paypal-test/mytestdb.php'
+	'notify_url' => 'http://localhost/InitFun/paypal/subscription/subscription_success.php?duration='.$_POST['item_name'],
 ];
 
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
@@ -39,7 +24,7 @@ $itemNames = ['Zapico Item','Zapico Item 1'];
 $itemAmounts = [5.00,10.00];
 
 // Include Functions
-require 'functions.php';
+require '../functions.php';
 
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
@@ -49,7 +34,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// our post data.
 	$data = [];
 	foreach ($_POST as $key => $value) {
-		$data[$key] = stripslashes($value);
+		if(is_string($value))
+			$data[$key] = stripslashes($value);
 	}
 
 	// Set the PayPal account.
@@ -64,14 +50,20 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
 	// Set the details about the product being purchased, including the amount
 	// and currency so that these aren't overridden by the form data.
-	//$data['item_name'] = $itemName[0];	
-	//$data['amount'] = $itemAmount[0];
-	$data['item_name'] = 'akoi nagset ani nga item';
-	$data['amount'] = 5.00;
-	$data['item_name_1'] = 'akoi nagset ani nga sad ';
-	$data['amount_1'] = 155.00;
-	$data['item_name_2'] = 'akoi nagset ani nga 2 ';
-	$data['amount_2'] = 175.00;
+	
+	$data['item_name'] = $_POST['item_name'];
+	echo $data['item_name'];
+
+	switch($data['item_name']){
+		case '6 Months Subscription':
+			$data['amount'] = 5;
+			break;
+		case '12 Months Subscription':
+			$data['amount'] = 10;
+			break;
+		default:
+			$data['amount'] = 0;
+	}
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
@@ -81,8 +73,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$queryString = http_build_query($data);
 
 	// Redirect to paypal IPN
-	print_r($queryString);
-	// header('location:' . $paypalUrl . '?' . $queryString);
+	header('location:' . $paypalUrl . '?' . $queryString);
 	exit();
 } else {
 	// Handle the PayPal response.

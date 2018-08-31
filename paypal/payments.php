@@ -49,7 +49,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// our post data.
 	$data = [];
 	foreach ($_POST as $key => $value) {
-		$data[$key] = stripslashes($value);
+		if(is_string($value))
+			$data[$key] = stripslashes($value);
 	}
 
 	// Set the PayPal account.
@@ -66,12 +67,16 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// and currency so that these aren't overridden by the form data.
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
-	$data['item_name'] = $_POST['item_name'];
-	$data['amount'] = 155.00;
+	$i = 1;
+	foreach($_POST['item_names'] as $name){
+		$data['item_name_'.$i] = $name;
+		$data['amount_'.$i] = $_POST['amount'][$i];
+		echo $data['item_name_'.$i]."costs".$_POST['amount'][$i];
+		$i++;
+	}
 	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
 	// $data['amount_2'] = 175.00;
 
-	$data['tax_rate'] = 13;
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
@@ -81,7 +86,6 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$queryString = http_build_query($data);
 
 	// Redirect to paypal IPN
-	print_r($queryString);
 	header('location:' . $paypalUrl . '?' . $queryString);
 	exit();
 } else {
