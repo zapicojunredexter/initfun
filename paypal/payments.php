@@ -69,10 +69,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// and currency so that these aren't overridden by the form data.
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
-<<<<<<< HEAD:paypal-test/payments.php
 	// $data['item_name'] = $_POST['item_name'];
 	// $data['amount'] = 155.00;
-=======
 	$i = 1;
 	foreach($_POST['item_names'] as $name){
 		$data['item_name_'.$i] = $name;
@@ -80,7 +78,6 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		echo $data['item_name_'.$i]."costs".$_POST['amount'][$i];
 		$i++;
 	}
->>>>>>> subscription:paypal/payments.php
 	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
 	// $data['amount_2'] = 175.00;
 	
@@ -89,11 +86,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
 		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
 	}
-
-<<<<<<< HEAD:paypal-test/payments.php
+    
 	$data['tax_cart'] = $tax * 0.13;
-=======
->>>>>>> subscription:paypal/payments.php
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
