@@ -23,4 +23,16 @@ jQuery(document).ready(function( $ ) {
     animation: {opacity:'show'},
     speed: 400
   });
+    
+    $('#calendar').datepicker({
+        todayHighlight: true,
+        todayBtn: true,
+        multidate: true,
+        multidateSeparator: ","
+    });
+    $('#calendar').on('changeDate', function() {
+       $('#asd').val(
+           $('#calendar').datepicker('getFormattedDate')
+       );
+    });
   });
