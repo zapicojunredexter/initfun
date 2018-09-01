@@ -4,28 +4,39 @@ require_once 'includes/header.php';
 require_once 'Owner/php_action/db_connect.php'; 
 require_once 'functions.php';
   $db= mysqli_connect('localhost','root','','initfun');
- 
   if(isset($_GET['add'])){
       $id = $_GET['add'];
       $result = mysqli_query($db, "SELECT * from product WHERE id = $id");
       $row = mysqli_fetch_array($result);
+      
+      $_SESSION['cart_'.$_GET['add']]='1';
+      echo $row['quantity'];
+      /*
       if ($row['quantity'] != $_SESSION['cart_'.$_GET['add']] &&$row['quantity'] > 0) {
-        $_SESSION['cart_'.$_GET['add']]+='1';
+        $_SESSION['cart_'.$_GET['add']]='1';
         echo $row['quantity'];
-            header("Location: products.php");
+            // header("Location: products.php");
       }else{
         echo '<script language="javascript">alert("Stock products are not sufficient!"); document.location="products.php";</script>';
       }
+      */
   }
-  $i=-2;
-  //if (!empty($_SESSION["cart_"]) && is_array($_SESSION["cart_"])) {
+  $i=0;
     foreach($_SESSION as $name => $value){
-      if($value > 0)
+      $shouldUnset = false;
+      if(isset($_GET['unsetCart'])){
+        $shouldUnset = true;
+      }
+      echo "tuara".$shouldUnset;
+      if(substr($name, 0, 5) == 'cart_')
       {
-        $i++;
+        if($shouldUnset){
+          unset($_SESSION[$name]);
+        }else{
+          $i++;
+        }
       }
     }
- // }
 ?>
 
 <!-- header -->
@@ -123,22 +134,21 @@ require_once 'functions.php';
                 $activeBakeshops = mysqli_query($db, "SELECT * from users u where (u.account_expiration) <> '-' AND (u.account_expiration) > $today");
                 
                 while($bakeshop=mysqli_fetch_array($activeBakeshops)){
-                  echo"<li><button class='btn'><a href='products.php?bakeshop=".$bakeshop['id']."'>".$bakeshop['username']."</a></button></li>";
+                  echo"<li class='active'><button class='btn'><a href='products.php?unsetCart=1&bakeshop=".$bakeshop['id']."'>".$bakeshop['username']."</a></button></li>";
                 }    	
               ?>
 
             </ul>
           </div>
           <div class="container" style="border: 1px solid; border-radius: 5px; width: 1000px; background: #FFC7002A;">
-              
               <?php
-              $bakeshopId = $_GET['bakeshop'];
-
-              $result = mysqli_query($db, "SELECT p.id,p.product_name,p.product_image,p.rate from users u,categories c,product p WHERE u.id = $bakeshopId AND u.id = c.owner_id AND c.id = p.categories_id");
+              if(isset($_GET['bakeshop'])){
+                $bakeshopId = $_GET['bakeshop'];
+                $result = mysqli_query($db, "SELECT p.id,p.product_name,p.product_image,p.rate from users u,categories c,product p WHERE u.id = $bakeshopId AND u.id = c.owner_id AND c.id = p.categories_id");
                 while($row = mysqli_fetch_array($result)){
                   ?>
                     <div class='col-md-3'>
-		                  <form method='post' action='products.php?bakeshop=<?php echo $bakeshopId;?>action=add&product_id=<?php echo $row['id']?>'>
+		                  <form method='post' action='products.php?bakeshop=<?php echo $bakeshopId;?>&action=add&product_id=<?php echo $row['id']?>'>
 		                    <div style='border: 1px solid; background-color: #f1f1f1; border-radius: 5px; padding: 12px; margin: 10px;' align='center'>
                         <img src= 'Owner<?php echo $row['product_image']?>' class='image-responsive' style='width: 140px;  height: 100px; border-radius: 5px; margin-bottom: 10px;'/><br/>              
                             <p class='text-info' style='margin: 0px;'><?php echo $row['product_name']?></p>
@@ -147,7 +157,7 @@ require_once 'functions.php';
 			                      <div class='row'>
 				                      <div class='separator clear-left'>
 					                      <a class='btn btn-success' 
-				                      	href='products.php?bakeshop=<?php echo $bakeshopId;?>action=add&product_id=<?php echo $row['id']?>' >Add to cart</a>
+				                      	href='products.php?bakeshop=<?php echo $bakeshopId;?>&add=<?php echo $row['id']?>' >Add to cart</a>
 				                      </div>
 			                      </div>
 		                    </div>
@@ -155,7 +165,8 @@ require_once 'functions.php';
 		                </div>
                   <?php
                 }
-                  
+                
+              }  
                 
               ?>
           </div> 
