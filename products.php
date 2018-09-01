@@ -114,21 +114,49 @@ require_once 'functions.php';
       <div class="container" style="margin-bottom: 40px;">
           <div class="category_content">
             <ul id="product-filter">
+          <!--
             <li><button class="btn"><a href='products.php'>All Products</a></button></li>
-
+          -->
               <?php           
-                getcategory();
+                // getcategory();
+                $today = date("Y-m-d");
+                $activeBakeshops = mysqli_query($db, "SELECT * from users u where (u.account_expiration) <> '-' AND (u.account_expiration) > $today");
+                
+                while($bakeshop=mysqli_fetch_array($activeBakeshops)){
+                  echo"<li><button class='btn'><a href='products.php?bakeshop=".$bakeshop['id']."'>".$bakeshop['username']."</a></button></li>";
+                }    	
               ?>
 
             </ul>
           </div>
           <div class="container" style="border: 1px solid; border-radius: 5px; width: 1000px; background: #FFC7002A;">
+              
               <?php
-              if(isset($_GET['cat'])){
-                getcategoryproduct();
-              }else{
-                getallproducts();
-              }
+              $bakeshopId = $_GET['bakeshop'];
+
+              $result = mysqli_query($db, "SELECT p.id,p.product_name,p.product_image,p.rate from users u,categories c,product p WHERE u.id = $bakeshopId AND u.id = c.owner_id AND c.id = p.categories_id");
+                while($row = mysqli_fetch_array($result)){
+                  ?>
+                    <div class='col-md-3'>
+		                  <form method='post' action='products.php?bakeshop=<?php echo $bakeshopId;?>action=add&product_id=<?php echo $row['id']?>'>
+		                    <div style='border: 1px solid; background-color: #f1f1f1; border-radius: 5px; padding: 12px; margin: 10px;' align='center'>
+                        <img src= 'Owner<?php echo $row['product_image']?>' class='image-responsive' style='width: 140px;  height: 100px; border-radius: 5px; margin-bottom: 10px;'/><br/>              
+                            <p class='text-info' style='margin: 0px;'><?php echo $row['product_name']?></p>
+			                      <p class='text-danger' style='margin-bottom: 0px;'><?php echo $row['rate']?> PHP</p>
+			                      <input type='hidden' name='quantity' class='form-control' value='1'/>
+			                      <div class='row'>
+				                      <div class='separator clear-left'>
+					                      <a class='btn btn-success' 
+				                      	href='products.php?bakeshop=<?php echo $bakeshopId;?>action=add&product_id=<?php echo $row['id']?>' >Add to cart</a>
+				                      </div>
+			                      </div>
+		                    </div>
+		                  </form>
+		                </div>
+                  <?php
+                }
+                  
+                
               ?>
           </div> 
       </div>
