@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2018 at 03:54 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Generation Time: Sep 01, 2018 at 09:33 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -58,7 +60,9 @@ INSERT INTO `categories` (`id`, `owner_id`, `categories_name`, `categories_activ
 (13, 3, 'Pastry', 1),
 (14, 2, 'Cake Rolls', 1),
 (15, 2, 'Cookies', 1),
-(18, 2, 'Pasalubongs', 1);
+(18, 2, 'Pasalubongs', 1),
+(19, 10, 'sweets', 1),
+(22, 123, 'test category name', 1);
 
 -- --------------------------------------------------------
 
@@ -90,7 +94,8 @@ INSERT INTO `customers` (`id`, `first_name`, `middle_name`, `last_name`, `gender
 (2, 'John', 'Else', 'Arch', 'Female', '1997-12-03', 'em@gmail.com', 'Buatis Lusaran Cebu City', '9282292829', 'em@gmail.com', '200820e3227815ed1756a6b531e7e0d2', '0.00'),
 (3, 'Josh', 'Else', 'Doe', 'Female', '1997-03-18', 'buatis', 'buatis', '123213123', 'em1@gmail.com', '200820e3227815ed1756a6b531e7e0d2', '0.00'),
 (4, 'Josh', 'Escoto', 'Angeles', 'Male', '1986-03-18', 'Buatis Lusaran Cebu City', 'balagtas street cebu city', '09226186854', 'ange@gmail.com', '200820e3227815ed1756a6b531e7e0d2', '910.73'),
-(5, 'Rascel', 'Maglasang', 'Batiancila', 'Female', '1997-10-03', 'Talamban Cebu City', 'Talamban Cebu City', '092261868542', 'rascel@gmail.com', '200820e3227815ed1756a6b531e7e0d2', '1000.00');
+(5, 'Rascel', 'Maglasang', 'Batiancila', 'Female', '1997-10-03', 'Talamban Cebu City', 'Talamban Cebu City', '092261868542', 'rascel@gmail.com', '200820e3227815ed1756a6b531e7e0d2', '1000.00'),
+(6, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '1997-07-17', 'isagani street cebu', 'isagani street cebu', '12345678', 'zapicojunredexter@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', '0.00');
 
 -- --------------------------------------------------------
 
@@ -203,7 +208,8 @@ INSERT INTO `product` (`id`, `product_name`, `product_image`, `brand_id`, `categ
 (38, 'Jelly Roll', '../assests/images/initfun/183475b04cd96be4af.jpg', 3, 13, '30', '190', 1),
 (39, 'Egg White', '../assests/images/initfun/199765b04cdb425f92.jpg', 3, 13, '10', '180', 1),
 (40, 'White Cake', '../assests/images/initfun/304795b04e583f31f2.jpg', 8, 17, '2', '260', 1),
-(41, 'Dried Mangoes', '../assests/images/initfun/290935b050c06346da.jpg', 2, 18, '17', '17', 1);
+(41, 'Dried Mangoes', '../assests/images/initfun/290935b050c06346da.jpg', 2, 18, '17', '17', 1),
+(42, 'candy', '../assests/images/initfun/1935846245b7e486a82ad5.jpg', 10, 19, '5', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -224,20 +230,23 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `brand_id` int(11) NOT NULL
+  `brand_id` int(11) NOT NULL,
+  `account_expiration` varchar(20) NOT NULL DEFAULT '-'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `is_admin`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `date_of_birth`, `address`, `username`, `password`, `email`, `brand_id`) VALUES
-(1, 1, '', '', '', '', '', '0000-00-00', '', 'initfunadmin', '200820e3227815ed1756a6b531e7e0d2', '', 1),
-(2, 0, 'Shammy', 'Shady', 'Rock', 'Male', '099292992', '1984-02-02', 'Balagtas street', 'shamrock', '200820e3227815ed1756a6b531e7e0d2', 'shammy.shamrock@gmail.com', 2),
-(3, 0, 'Max', 'Imum', 'Well', 'Male', '09299292', '1985-10-02', 'Talamban, Cebu City', 'max', '200820e3227815ed1756a6b531e7e0d2', 'max.max@gmail.com', 3),
-(7, 0, 'Josua', 'Escoto', 'Angeles', 'Male', '09226186854', '1997-03-03', 'Balagtas Street Cebu City', 'Gardenia', '', 'josh.gardenia@gmail.com', 0),
-(8, 0, 'Victor', 'Villacorta', 'Tabanag', 'Male', '0912314123123', '1995-05-19', 'Sanciangko st. Cebu City', 'victortabanag', '912ec803b2ce49e4a541068d495ab570', 'victor@gmail.com', 0),
-(9, 0, 'JOsua', 'Escoto', 'Apus', 'Male', '9209202922', '1997-04-03', 'balagtas street cebu city', 'gardenia', '200820e3227815ed1756a6b531e7e0d2', 'gardenia1@gmail.com', 0);
+INSERT INTO `users` (`id`, `is_admin`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `date_of_birth`, `address`, `username`, `password`, `email`, `brand_id`, `account_expiration`) VALUES
+(1, 1, '', '', '', '', '', '0000-00-00', '', 'initfunadmin', '200820e3227815ed1756a6b531e7e0d2', '', 1, '-'),
+(2, 0, 'Shammy', 'Shady', 'Rock', 'Male', '099292992', '1984-02-02', 'Balagtas street', 'shamrock', '200820e3227815ed1756a6b531e7e0d2', 'shammy.shamrock@gmail.com', 2, '2018-08-31'),
+(3, 0, 'Max', 'Imum', 'Well', 'Male', '09299292', '1985-10-02', 'Talamban, Cebu City', 'max', '200820e3227815ed1756a6b531e7e0d2', 'max.max@gmail.com', 3, '-'),
+(7, 0, 'Josua', 'Escoto', 'Angeles', 'Male', '09226186854', '1997-03-03', 'Balagtas Street Cebu City', 'Gardenia', '', 'josh.gardenia@gmail.com', 0, '-'),
+(8, 0, 'Victor', 'Villacorta', 'Tabanag', 'Male', '0912314123123', '1995-05-19', 'Sanciangko st. Cebu City', 'victortabanag', '912ec803b2ce49e4a541068d495ab570', 'victor@gmail.com', 0, '-'),
+(9, 0, 'JOsua', 'Escoto', 'Apus', 'Male', '9209202922', '1997-04-03', 'balagtas street cebu city', 'gardenia', '200820e3227815ed1756a6b531e7e0d2', 'gardenia1@gmail.com', 0, '-'),
+(10, 0, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '12345679', '1997-06-17', 'mybakery', 'junredexterzapico@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', 'junredexterzapico@yahoo.com', 0, '2018-08-31'),
+(11, 0, '', '', '', '', '', '0000-00-00', '', 'root', '', '', 0, '-');
 
 --
 -- Indexes for dumped tables
@@ -294,36 +303,44 @@ ALTER TABLE `users`
 --
 ALTER TABLE `brands`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
