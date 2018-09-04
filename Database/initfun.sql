@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2018 at 09:33 AM
+-- Generation Time: Sep 04, 2018 at 08:53 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -152,26 +152,27 @@ CREATE TABLE `order_item` (
   `quantity` varchar(255) NOT NULL,
   `rate` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `order_item_status` int(11) NOT NULL DEFAULT '0'
+  `order_item_status` int(11) NOT NULL DEFAULT '0',
+  `scheduled_delivery` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_item`
 --
 
-INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `quantity`, `rate`, `total`, `order_item_status`) VALUES
-(12, 65, 22, '1', '12', '12.00', 1),
-(106, 193, 22, '2', '24', '27.12', 1),
-(107, 194, 24, '1', '12', '13.56', 1),
-(108, 195, 40, '2', '260', '520.00', 1),
-(109, 196, 30, '2', '22', '24.86', 1),
-(110, 197, 36, '1', '5', '5.65', 1),
-(111, 198, 40, '1', '260', '293.8', 1),
-(112, 199, 41, '4', '17', '68.00', 1),
-(113, 200, 29, '5', '50', '56.5', 1),
-(114, 201, 28, '1', '10', '11.3', 1),
-(115, 202, 30, '1', '11', '12.43', 1),
-(116, 203, 31, '1', '8', '9.04', 1);
+INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `quantity`, `rate`, `total`, `order_item_status`, `scheduled_delivery`) VALUES
+(12, 65, 22, '1', '12', '12.00', 1, ''),
+(106, 193, 22, '2', '24', '27.12', 1, ''),
+(107, 194, 24, '1', '12', '13.56', 1, ''),
+(108, 195, 40, '2', '260', '520.00', 1, ''),
+(109, 196, 30, '2', '22', '24.86', 1, ''),
+(110, 197, 36, '1', '5', '5.65', 1, ''),
+(111, 198, 40, '1', '260', '293.8', 1, ''),
+(112, 199, 41, '4', '17', '68.00', 1, ''),
+(113, 200, 29, '5', '50', '56.5', 1, ''),
+(114, 201, 28, '1', '10', '11.3', 1, ''),
+(115, 202, 30, '1', '11', '12.43', 1, ''),
+(116, 203, 31, '1', '8', '9.04', 1, '');
 
 -- --------------------------------------------------------
 
@@ -320,13 +321,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `product`
