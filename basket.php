@@ -187,7 +187,7 @@ $items = [];  //Initialization of array
 
 							echo '
 							<div style="padding-bottom:10px;">
-							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+							<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
        						<input type="hidden" name="upload" value="1">
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="no_note" value="1" />
