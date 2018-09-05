@@ -9,7 +9,7 @@ $enableSandbox = true;
 $paypalConfig = [
 	'email' => 'zapicojunredexter-facilitator@gmail.com',
 	//'return_url' => 'http://localhost/InitFun/paypal/subscription/subscription_success.php?duration='.$_POST['item_name'],
-	'return_url' => 'http://localhost/InitFun/paypal-test/payment-successful.html',
+	'return_url' => 'http://localhost/InitFun/paypal/subscription/subscription_success.php?duration='.$_POST['item_name'],
 	'cancel_url' => 'http://localhost/InitFun/paypal-test/payment-cancelled.html',
 	// 'notify_url' => 'http://localhost/InitFun/paypal-test/mytestdb.php'
 	'notify_url' => 'http://localhost/InitFun/paypal/subscription/subscription_success.php?duration='.$_POST['item_name'],

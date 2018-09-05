@@ -1,4 +1,7 @@
-<?php require_once 'includes/header.php'; ?>
+<?php
+require_once 'includes/header.php';
+require_once 'disabling.overlay.php';
+?>
 
 <div class="row">
 	<div class="col-md-12">

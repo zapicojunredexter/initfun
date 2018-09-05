@@ -64,9 +64,11 @@
 
 		// register user if there are no errors in the form
 		if (count($errors) == 0) {
+			echo "good to gooo";
+			$accountExpiration = date('Y-m-d', strtotime('-1 day', strtotime(date('Y-m-d'))));
 			$password = md5($password_1);
-			$query = "INSERT INTO users (is_admin, first_name, middle_name, last_name, username ,gender, date_of_birth, address, phone_number, email, password) 
-					  VALUES(0, '$first_name', '$middle_name', '$last_name', '$username', '$gender', '$date_of_birth', '$address', '$phone_number', '$email', '$password')";
+			$query = "INSERT INTO users (is_admin, first_name, middle_name, last_name, username ,gender, date_of_birth, address, phone_number, email, password, account_expiration) 
+					  VALUES(0, '$first_name', '$middle_name', '$last_name', '$username', '$gender', '$date_of_birth', '$address', '$phone_number', '$email', '$password','$accountExpiration')";
 			mysqli_query($db, $query);
 
 			header('location: index.php');

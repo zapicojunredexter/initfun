@@ -4,13 +4,7 @@
 // payments through then this setting needs changing to `false`.
 $enableSandbox = true;
 
-// Database settings. Change these for your database configuration.
-$dbConfig = [
-	'host' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'name' => 'example_database'
-];
+$db = mysqli_connect('localhost','root','','initfun');
 
 // PayPal settings. Change these to your account details and the relevant URLs
 // for your site.
@@ -25,8 +19,8 @@ $paypalConfig = [
 
 $paypalConfig = [
 	'email' => 'zapicojunredexter-facilitator@gmail.com',
-	'return_url' => 'http://localhost/InitFun/paypal-test/payment-successful.html',
-	'cancel_url' => 'http://localhost/InitFun/paypal-test/payment-cancelled.html',
+	'return_url' => 'http://localhost/InitFun/paypal/cart.payment/cart_success.php',
+	'cancel_url' => 'http://localhost/InitFun/paypal/cart.payment/cart_cancelled.php',
 	'notify_url' => 'http://localhost/InitFun/paypal-test/mytestdb.php'
 ];
 
@@ -57,20 +51,62 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
 	// Set the PayPal account.
 	$data['business'] = $paypalConfig['email'];
+	$totalAmount = 0;
+	for($i = 0 ; $i < $counter ; $i++){
+
+		$amount = $_POST['amount_'.strval($i+1)];
+		$quantity = $_POST['amount_'.strval($i+1)];
+		echo $amount."**".$quantity."--";
+		$data['item_name_'.strval($i+1)] = $_POST['item_name_'.strval($i+1)];
+		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
+		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
+
+		$totalAmount += $data['amount_'.strval($i+1)];
+
+	}
+
+	// adding initial order record
+	$orderDate = date('Y-m-d');
+	$query = "INSERT INTO orders (
+		order_date,
+		client_name,
+		client_contact,
+		sub_total,
+		vat,
+		total_amount,
+		discount,
+		grand_total,
+		paid,
+		due,
+		payment_type,
+		payment_status,
+		order_status,
+		owner_id) VALUES (
+			'$orderDate',
+			'test name',
+			'test contact',
+			'test subtotal',
+			'test vat value',
+			'$totalAmount',
+			'test discount',
+			'$totalAmount',
+			'test paid',
+			'test due',
+			0,
+			0,
+			1,
+			123
+		)";
+
+	mysqli_query($db, $query);
+	$orderId = mysqli_insert_id($db); 
 
 	// Set the PayPal return addresses.
-	$data['return'] = stripslashes($paypalConfig['return_url']);
-	$data['cancel_return'] = stripslashes($paypalConfig['cancel_url']);
+	$data['return'] = stripslashes($paypalConfig['return_url']."?orderId=".$orderId);
+	$data['cancel_return'] = stripslashes($paypalConfig['cancel_url']."?orderId=".$orderId);
 	$data['notify_url'] = stripslashes($paypalConfig['notify_url']);
-	
-	echo stripslashes($paypalConfig['notify_url']);
 
-	// Set the details about the product being purchased, including the amount
-	// and currency so that these aren't overridden by the form data.
-	//$data['item_name'] = $itemName[0];	
-	//$data['amount'] = $itemAmount[0];
-	// $data['item_name'] = $_POST['item_name'];
-	// $data['amount'] = 155.00;
+
 	$i = 1;
 	foreach($_POST['item_names'] as $name){
 		$data['item_name_'.$i] = $name;
@@ -78,13 +114,40 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		echo $data['item_name_'.$i]."costs".$_POST['amount'][$i];
 		$i++;
 	}
-	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
-	// $data['amount_2'] = 175.00;
-	
+
+	$totalAmount = 0;
 	for($i = 0 ; $i < $counter ; $i++){
+
+		$amount = $_POST['amount_'.strval($i+1)];
+		$quantity = $_POST['amount_'.strval($i+1)];
+		echo $amount."**".$quantity."--";
 		$data['item_name_'.strval($i+1)] = $_POST['item_name_'.strval($i+1)];
 		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
 		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
+
+		$totalAmount += $data['amount_'.strval($i+1)];
+
+		// adding detailed items to db
+		$orderDate = date('Y-m-d');
+		$query = "INSERT INTO order_item (
+			order_id,
+			product_id,
+			quantity,
+			rate,
+			total,
+			order_item_status,
+			scheduled_delivery) VALUES (
+				$orderId,
+				123,
+				$quantity,
+				$amount,
+				$amount,
+				1,
+				'$orderDate'
+			)";
+
+		mysqli_query($db, $query);
+	
 	}
 
 	$data['tax_cart'] = $tax * 0.13;
@@ -97,42 +160,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$queryString = http_build_query($data);
 
 	// Redirect to paypal IPN
+	
 	header('location:' . $paypalUrl . '?' . $queryString);
 	exit();
-} else {
-	// Handle the PayPal response.
-
-	/*
-    $fp = fopen('zzzzz.txt', 'w');
-    fwrite($fp, '1');
-    fwrite($fp, '23');
-	fclose($fp);
-	
-
-	// Create a connection to the database.
-	$db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
-
-	// Assign posted variables to local data array.
-	$data = [
-		'item_name' => $_POST['item_name'],
-		'item_number' => $_POST['item_number'],
-		'payment_status' => $_POST['payment_status'],
-		'payment_amount' => $_POST['mc_gross'],
-		'payment_currency' => $_POST['mc_currency'],
-		'txn_id' => $_POST['txn_id'],
-		'receiver_email' => $_POST['receiver_email'],
-		'payer_email' => $_POST['payer_email'],
-		'custom' => $_POST['custom'],
-	];
-	// We need to verify the transaction comes from PayPal and check we've not
-	// already processed the transaction before adding the payment to our
-	// database.
-	return;
-	if (verifyTransaction($_POST) && checkTxnid($data['txn_id'])) {
-		if (addPayment($data) !== false) {
-			// Payment successfully added.
-		}
-	}
-	
-*/
 }
