@@ -71,10 +71,6 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	//$data['amount'] = $itemAmount[0];
 	// $data['item_name'] = $_POST['item_name'];
 	// $data['amount'] = 155.00;
-<<<<<<< HEAD
-
-=======
->>>>>>> 9627e63a1b756be539f40daf754752010713e024
 	$i = 1;
 	foreach($_POST['item_names'] as $name){
 		$data['item_name_'.$i] = $name;
@@ -82,10 +78,6 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		echo $data['item_name_'.$i]."costs".$_POST['amount'][$i];
 		$i++;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 9627e63a1b756be539f40daf754752010713e024
 	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
 	// $data['amount_2'] = 175.00;
 	
@@ -94,11 +86,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
 		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
 	}
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 9627e63a1b756be539f40daf754752010713e024
 	$data['tax_cart'] = $tax * 0.13;
 	$data['currency_code'] = 'PHP';
 
