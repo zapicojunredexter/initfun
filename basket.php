@@ -167,7 +167,7 @@ $items = [];  //Initialization of array
 							
 						// 	echo '
 						// 	<div style="padding-bottom:10px;">
-						// 	<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
+						// 	<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
 						// 	<!--
 						// 	<input type="hidden" name="cmd" value="_xclick" />
 						// 	-->
@@ -212,11 +212,9 @@ $items = [];  //Initialization of array
 						}
 						
 					?>
-					
-					<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
-							<!--
-							<input type="hidden" name="cmd" value="_xclick" />
-							-->
+					<!--
+					<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
+							
         <input type="hidden" name="upload" value="1">
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="no_note" value="1" />
@@ -233,9 +231,7 @@ $items = [];  //Initialization of array
 						</form>
 			
 							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
-        <!--
-        <input type="hidden" name="cmd" value="_xclick" />
-        -->
+        
         <input type="hidden" name="upload" value="1">
 
         <input type="hidden" name="cmd" value="_cart">
@@ -250,7 +246,7 @@ $items = [];  //Initialization of array
         <input type="hidden" name="item_number_2" value="234567" / >
         <input type="submit" name="submit" value="working" />
     </form>
-					</div>
+-->
 					</div>
 			<!-- 	</div>
 			</div> -->
