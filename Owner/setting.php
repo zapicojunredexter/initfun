@@ -91,9 +91,20 @@ $connect->close();
 				<?php
 					if($result->account_expiration!=="-")
 					{
+						if($result->account_expiration<date("Y-m-d")){
+							?>
+							To be able to continue using our service, your account needs to be reactivated!
+							visit <a href="http://localhost/initfun/paypal/subscription/subscription_index.html">here</a> to renew
+				
+							<?php
+						}else{
+							?>
+							Account is valid until <?php
+								echo date("l jS \of F Y",strtotime($result->account_expiration));
+							?><br>
+							<?php
+						}
 				?>
-				account will expire on <?php echo $result->account_expiration?><br>
-				click <a href="http://localhost/initfun/paypal/subscription/subscription_index.html">here</a> to renew
 				<?php
 					}
 				?>

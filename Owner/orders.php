@@ -1,7 +1,7 @@
 <?php 
 require_once 'php_action/db_connect.php'; 
 require_once 'includes/header.php'; 
-
+require_once 'disabling.overlay.php';
 if($_GET['o'] == 'add') { 
 // add order
 	echo "<div class='div-request div-hide'>add</div>";

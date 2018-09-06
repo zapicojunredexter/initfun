@@ -1,7 +1,7 @@
 <?php
 
 require_once 'includes/header.php';
-
+require_once 'disabling.overlay.php';
 
 
 $sql = "SELECT * FROM product WHERE active = 1";
