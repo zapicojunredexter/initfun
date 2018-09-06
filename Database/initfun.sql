@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2018 at 08:53 AM
+-- Generation Time: Sep 06, 2018 at 09:16 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -246,8 +246,9 @@ INSERT INTO `users` (`id`, `is_admin`, `first_name`, `middle_name`, `last_name`,
 (7, 0, 'Josua', 'Escoto', 'Angeles', 'Male', '09226186854', '1997-03-03', 'Balagtas Street Cebu City', 'Gardenia', '', 'josh.gardenia@gmail.com', 0, '-'),
 (8, 0, 'Victor', 'Villacorta', 'Tabanag', 'Male', '0912314123123', '1995-05-19', 'Sanciangko st. Cebu City', 'victortabanag', '912ec803b2ce49e4a541068d495ab570', 'victor@gmail.com', 0, '-'),
 (9, 0, 'JOsua', 'Escoto', 'Apus', 'Male', '9209202922', '1997-04-03', 'balagtas street cebu city', 'gardenia', '200820e3227815ed1756a6b531e7e0d2', 'gardenia1@gmail.com', 0, '-'),
-(10, 0, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '12345679', '1997-06-17', 'mybakery', 'junredexterzapico@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', 'junredexterzapico@yahoo.com', 0, '2018-08-31'),
-(11, 0, '', '', '', '', '', '0000-00-00', '', 'root', '', '', 0, '-');
+(10, 0, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '12345679', '1997-06-17', 'mybakery', 'junredexterzapico@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', 'junredexterzapico@yahoo.com', 0, '2019-03-06'),
+(11, 0, '', '', '', '', '', '0000-00-00', '', 'root', '', '', 0, '-'),
+(12, 0, 'qwe', 'qwe', 'qwe', 'Male', 'qwe', '2018-09-06', 'qwe', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 'qwe@sada.co', 0, '2018-09-05');
 
 --
 -- Indexes for dumped tables
@@ -321,13 +322,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -339,7 +340,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
