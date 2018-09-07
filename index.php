@@ -36,6 +36,7 @@ require_once 'includes/header.php';
                 echo"
                 <li class='menu-active'><a href='index.php?id=" .$id ."'>Home</a></li>
                 <li><a href='products.php?id=" .$id ."'>Products</a></li>
+                <li><a href='customer_order_history.php'>Order History</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
                 <li><a href='basket.php'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
                 <li><a href='customerprofile.php?id=" .$id ."'>My Account($wallet)</a></li>

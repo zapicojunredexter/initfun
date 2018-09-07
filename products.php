@@ -27,7 +27,6 @@ require_once 'functions.php';
       if(isset($_GET['unsetCart'])){
         $shouldUnset = true;
       }
-      echo "tuara".$shouldUnset;
       if(substr($name, 0, 5) == 'cart_')
       {
         if($shouldUnset){
@@ -64,6 +63,7 @@ require_once 'functions.php';
                 echo"
                 <li><a href='index.php?id=" .$id ."'>Home</a></li>
                 <li class='menu-active'><a href='products.php?id=" .$id ."'>Products</a></li>
+                <li><a href='customer_order_history.php'>Order History</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
                 <li><a href='basket.php'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
                 <li><a href='customerprofile.php?id=" .$id ."'>My Account( $wallet)</a></li>
