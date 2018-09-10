@@ -1,7 +1,9 @@
 <?php
 $orderId = $_GET['orderId'];
 $db = mysqli_connect('localhost','root','','initfun');
-
+$quantity = 1;
+$amount = 1;
+$orderDate = date('Y-m-d');
 $query = "INSERT INTO order_item (
     order_id,
     product_id,
