@@ -45,7 +45,10 @@ require_once 'functions.php';
         <ul class="nav-menu">
            <?php 
           if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
-          
+            $appendCart = "";
+            if(isset($_GET['bakeshop'])){
+              $appendCart = "?bakeshop=".$_GET['bakeshop'];
+            }
               $id = $_SESSION['id'];
               $result = mysqli_query($db, "SELECT * from customers WHERE id = $id");
                 while($row = mysqli_fetch_array($result)){
@@ -65,7 +68,7 @@ require_once 'functions.php';
                 <li class='menu-active'><a href='products.php?id=" .$id ."'>Products</a></li>
                 <li><a href='customer_order_history.php'>Order History</a></li>
                 <li style='font-size: 20px; color: #fff;'>|</li>
-                <li><a href='basket.php'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
+                <li><a href='basket.php".$appendCart."'><i class='fa fa-shopping-cart fa-2x'> ($i)</i></a></li>
                 <li><a href='customerprofile.php?id=" .$id ."'>My Account( $wallet)</a></li>
                 <li><a href='logout.php'>Log Out</a></li>";
           } else {  

@@ -2,6 +2,7 @@
 
 // For test payments we want to enable the sandbox mode. If you want to put live
 // payments through then this setting needs changing to `false`.
+session_start();
 $enableSandbox = true;
 
 $db = mysqli_connect('localhost','root','','initfun');
@@ -26,11 +27,6 @@ $paypalConfig = [
 
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 
-// Product being purchased.
-//$itemName = 'Test Item';
-//$itemAmount = 5.00;
-//$itemNames = ['Zapico Item','Zapico Item 1'];
-//$itemAmounts = [5.00,10.00];
 $counter = (int)$_POST['counter'];
 $tax = (float)$_POST['tax'];
 
@@ -40,6 +36,16 @@ require 'functions.php';
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
+
+	$userId = $_SESSION['id'];
+	
+	$userDetails = mysqli_query($db, "SELECT * from customers WHERE id = $userId");
+	$customerDetails = mysqli_fetch_array($userDetails);
+	print_r($customerDetails);
+	if(!$customerDetails){
+		echo "no logged in user records";
+		return;
+	}
 	// Grab the post data so that we can set up the query string for PayPal.
 	// Ideally we'd use a whitelist here to check nothing is being injected into
 	// our post data.
@@ -67,6 +73,9 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
 	// adding initial order record
 	$orderDate = date('Y-m-d');
+	$customerName = $customerDetails['first_name'].$customerDetails['last_name'];
+	$customerPhoneNumber = $customerDetails['phone_number'];
+	$ownerId = $_POST['ownerId'];
 	$query = "INSERT INTO orders (
 		order_date,
 		client_name,
@@ -83,19 +92,19 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		order_status,
 		owner_id) VALUES (
 			'$orderDate',
-			'test name',
-			'test contact',
-			'test subtotal',
-			'test vat value',
+			'$customerName',
+			'$customerPhoneNumber',
+			'-',
+			'-',
 			'$totalAmount',
-			'test discount',
+			'-',
 			'$totalAmount',
-			'test paid',
-			'test due',
+			'-',
+			'-',
 			0,
 			0,
 			1,
-			123
+			$ownerId
 		)";
 
 	mysqli_query($db, $query);
@@ -120,6 +129,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
 		$amount = $_POST['amount_'.strval($i+1)];
 		$quantity = $_POST['amount_'.strval($i+1)];
+		$itemId = $_POST['item_id_'.strval($i+1)];
+		
 		echo $amount."**".$quantity."--";
 		$data['item_name_'.strval($i+1)] = $_POST['item_name_'.strval($i+1)];
 		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
@@ -138,7 +149,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 			order_item_status,
 			scheduled_delivery) VALUES (
 				$orderId,
-				123,
+				$itemId,
 				$quantity,
 				$amount,
 				$amount,

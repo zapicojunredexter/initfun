@@ -1,3 +1,4 @@
+
 var manageOrderTable;
 
 $(document).ready(function() {
@@ -340,7 +341,6 @@ $(document).ready(function() {
 
 }); // /documernt
 
-
 // print order function
 function printOrder(orderId = null) {
 	if(orderId) {		
@@ -395,6 +395,7 @@ function addRow() {
 		type: 'post',
 		dataType: 'json',
 		success:function(response) {
+			console.log("fetched" + JSON.stringify(response));
 			$("#addRowBtn").button("reset");			
 
 			var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+			  				

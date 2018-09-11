@@ -40,7 +40,6 @@ $items = [];  //Initialization of array
         $i++;
       }
     }
-
 ?>
 
 <!-- header -->
@@ -105,6 +104,7 @@ $items = [];  //Initialization of array
 								$total = 0;
 								$itemqty = 0;
 							    foreach($_SESSION as $name => $value){
+									$ownerId = 0;
 							        if($value > 0) {
 							        	if(substr($name, 0, 5) == 'cart_'){
                                             $id = substr($name, 5, (strlen($name)-5));
@@ -124,6 +124,7 @@ $items = [];  //Initialization of array
 											echo "</tr>";
 											//Creating an array of object
 											$items[$i] = new Item();
+											$items[$i]->id = $data3['id'];
 											$items[$i]->name = $data3['product_name'];
 											$items[$i]->price = $data3['rate'];
 											$items[$i]->quantity = $value;
@@ -196,9 +197,11 @@ $items = [];  //Initialization of array
 							<input type="hidden" name="first_name" value="Customer first" />
 							<input type="hidden" name="last_name" value="Customer last" />
 							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />';
+							echo '<input type="hidden" name="ownerId" value="'.$_GET['bakeshop'].'" />';
 							foreach($items as $item){
 								echo 
-								'<input type="hidden" name="item_name_'.strval($i+1).'" value="'.$item->name.'" />
+								'<input type="hidden" name="item_id_'.strval($i+1).'" value="'.$item->id.'" />
+								<input type="hidden" name="item_name_'.strval($i+1).'" value="'.$item->name.'" />
 								<input type="hidden" name="amount_'.strval($i+1).'" value="'.$item->price.'" />
 								<input type="hidden" name="quantity_'.strval($i+1).'" value="'.$item->quantity.'" />';
 								$i++;

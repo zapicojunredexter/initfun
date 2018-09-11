@@ -3,8 +3,8 @@
 require_once 'core.php';
 
 $sql = "SELECT * FROM orders WHERE order_status = 1 AND owner_id =  '".$_SESSION['userId']."' ";
-$result = $connect->query($sql);
 
+$result = $connect->query($sql);
 $output = array('data' => array());
 
 if($result->num_rows > 0) {
