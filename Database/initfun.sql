@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2018 at 09:33 AM
+-- Generation Time: Sep 11, 2018 at 09:42 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -137,7 +137,10 @@ INSERT INTO `orders` (`id`, `order_date`, `client_name`, `client_contact`, `sub_
 (200, '2018-05-23', 'Josh Angeles', '09226186854', '50', '6.5', '56.5', '0', '56.5', '1000.00', '943.5', 3, 1, 1, 2),
 (201, '2018-05-23', 'Josh Angeles', '09226186854', '10', '1.3', '11.3', '0', '11.3', '943.50', '932.2', 3, 1, 1, 2),
 (202, '2018-05-23', 'Josh Angeles', '09226186854', '11', '1.43', '12.43', '0', '12.43', '932.20', '919.77', 3, 1, 1, 2),
-(203, '2018-05-23', 'Josh Angeles', '09226186854', '8', '1.04', '9.04', '0', '9.04', '919.77', '910.73', 3, 1, 1, 2);
+(203, '2018-05-23', 'Josh Angeles', '09226186854', '8', '1.04', '9.04', '0', '9.04', '919.77', '910.73', 3, 1, 1, 2),
+(204, '2018-09-11', 'test name', 'test contact', 'test subtotal', 'test vat value', '1', 'test discount', '1', 'test paid', 'test due', 3, 1, 1, 10),
+(205, '2018-09-11', 'test name', 'test contact', 'test subtotal', 'test vat value', '1', 'test discount', '1', 'test paid', 'test due', 0, 1, 1, 123),
+(206, '2018-09-11', 'Junre DexterZapico', '12345678', '-', '-', '1', '-', '1', '-', '-', 0, 0, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -152,26 +155,32 @@ CREATE TABLE `order_item` (
   `quantity` varchar(255) NOT NULL,
   `rate` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `order_item_status` int(11) NOT NULL DEFAULT '0'
+  `order_item_status` int(11) NOT NULL DEFAULT '0',
+  `scheduled_delivery` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_item`
 --
 
-INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `quantity`, `rate`, `total`, `order_item_status`) VALUES
-(12, 65, 22, '1', '12', '12.00', 1),
-(106, 193, 22, '2', '24', '27.12', 1),
-(107, 194, 24, '1', '12', '13.56', 1),
-(108, 195, 40, '2', '260', '520.00', 1),
-(109, 196, 30, '2', '22', '24.86', 1),
-(110, 197, 36, '1', '5', '5.65', 1),
-(111, 198, 40, '1', '260', '293.8', 1),
-(112, 199, 41, '4', '17', '68.00', 1),
-(113, 200, 29, '5', '50', '56.5', 1),
-(114, 201, 28, '1', '10', '11.3', 1),
-(115, 202, 30, '1', '11', '12.43', 1),
-(116, 203, 31, '1', '8', '9.04', 1);
+INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `quantity`, `rate`, `total`, `order_item_status`, `scheduled_delivery`) VALUES
+(12, 65, 22, '1', '12', '12.00', 1, ''),
+(106, 193, 22, '2', '24', '27.12', 1, ''),
+(107, 194, 24, '1', '12', '13.56', 1, ''),
+(108, 195, 40, '2', '260', '520.00', 1, ''),
+(109, 196, 30, '2', '22', '24.86', 1, ''),
+(110, 197, 36, '1', '5', '5.65', 1, ''),
+(111, 197, 40, '1', '260', '293.8', 1, ''),
+(112, 199, 41, '4', '17', '68.00', 1, ''),
+(113, 200, 29, '5', '50', '56.5', 1, ''),
+(114, 201, 28, '1', '10', '11.3', 1, ''),
+(115, 202, 30, '1', '11', '12.43', 1, ''),
+(116, 203, 31, '1', '8', '9.04', 1, ''),
+(117, 204, 123, '1', '1', '1', 1, '2018-09-11'),
+(118, 204, 123, '1', '1', '1', 1, '2018-09-11'),
+(119, 204, 123, '1', '1', '1', 1, '2018-09-11'),
+(120, 205, 42, '1', '1', '1', 1, '2018-09-11'),
+(121, 206, 42, '1', '1', '1', 1, '2018-09-11');
 
 -- --------------------------------------------------------
 
@@ -245,8 +254,9 @@ INSERT INTO `users` (`id`, `is_admin`, `first_name`, `middle_name`, `last_name`,
 (7, 0, 'Josua', 'Escoto', 'Angeles', 'Male', '09226186854', '1997-03-03', 'Balagtas Street Cebu City', 'Gardenia', '', 'josh.gardenia@gmail.com', 0, '-'),
 (8, 0, 'Victor', 'Villacorta', 'Tabanag', 'Male', '0912314123123', '1995-05-19', 'Sanciangko st. Cebu City', 'victortabanag', '912ec803b2ce49e4a541068d495ab570', 'victor@gmail.com', 0, '-'),
 (9, 0, 'JOsua', 'Escoto', 'Apus', 'Male', '9209202922', '1997-04-03', 'balagtas street cebu city', 'gardenia', '200820e3227815ed1756a6b531e7e0d2', 'gardenia1@gmail.com', 0, '-'),
-(10, 0, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '12345679', '1997-06-17', 'mybakery', 'junredexterzapico@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', 'junredexterzapico@yahoo.com', 0, '2018-08-31'),
-(11, 0, '', '', '', '', '', '0000-00-00', '', 'root', '', '', 0, '-');
+(10, 0, 'Junre Dexter', 'Yutico', 'Zapico', 'Male', '12345679', '1997-06-17', 'mybakery', 'junredexterzapico@yahoo.com', '36e759659121dc7b67bb65ed20f54bea', 'junredexterzapico@yahoo.com', 0, '2019-03-06'),
+(11, 0, '', '', '', '', '', '0000-00-00', '', 'root', '', '', 0, '-'),
+(12, 0, 'qwe', 'qwe', 'qwe', 'Male', 'qwe', '2018-09-06', 'qwe', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 'qwe@sada.co', 0, '2018-09-05');
 
 --
 -- Indexes for dumped tables
@@ -320,13 +330,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -338,7 +348,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
