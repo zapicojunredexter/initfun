@@ -101,7 +101,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 			'$totalAmount',
 			'-',
 			'-',
-			0,
+			3,
 			0,
 			1,
 			$ownerId
