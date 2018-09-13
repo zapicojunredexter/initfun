@@ -9,6 +9,9 @@ session_start();
     $currentExpiration = $_SESSION['account_expiration'];
 
     switch($duration){
+		case '3 Months Subscription':
+            $newExpiration = date('Y-m-d', strtotime("+3 months", strtotime(date("Y-m-d"))));
+            break;
         case '6 Months Subscription':
             $newExpiration = date('Y-m-d', strtotime("+6 months", strtotime(date("Y-m-d"))));
 			break;
