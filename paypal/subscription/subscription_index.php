@@ -2,7 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    
+    <style>
+      .subscription-card {
+        opacity: 1;
+      }
+      .subscription-card:hover{
+        opacity: 0.7;
+        transition: 0.5s;
+      }
+    </style>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,36 +42,41 @@
 
 
 
+          <script>
+            function selectSubscription(type){
+              document.getElementById(`subscription-${type}`).checked = true;
+            }
+          </script>
           <div class="row" style="margin:40px 80px 40px 80px;">
 
-            <div class="col-sm-4" style="color:#f2d8cb;background-color:#f99663;padding:0px;text-align:center;">
+            <div onclick="selectSubscription(3)" class="col-sm-4 subscription-card" style="color:#f2d8cb;background-color:#f99663;padding:0px;text-align:center;">
               <h2>STARTER</h2>
               <div style="background-color:#f9ad86;margin:0px;padding:10px;">
                 <h1>PHP 6.00</h1>
               </div>
               <div style="background-color:white;color:black;">
-              <br><input type="radio" name="item_name" value="3 Months Subscription"> 3 Months Subscription
+              <br><input id="subscription-3" checked type="radio" name="item_name" value="3 Months Subscription"> 3 Months Subscription
               </div>
             </div>
 
-            <div class="col-sm-4" style="color:#f2d8cb;background-color:#ff7d3a;padding:0px;text-align:center;">
+            <div onclick="selectSubscription(6)" class="col-sm-4 subscription-card" style="color:#f2d8cb;background-color:#ff7d3a;padding:0px;text-align:center;">
               <h2>BASIC</h2>
               <div style="background-color:#ff8c51;margin:0px;padding:10px;">
                 <h1>PHP 6.00</h1>
               </div>
               <div style="background-color:white;color:black;">
-                <br><input type="radio" name="item_name" value="6 Months Subscription"> 6 Months Subscription
+                <br><input id="subscription-6" type="radio" name="item_name" value="6 Months Subscription"> 6 Months Subscription
               </div>
             </div>
 
 
-            <div class="col-sm-4" style="color:#f2d8cb;background-color:#f96213;padding:0px;text-align:center;">
+            <div onclick="selectSubscription(9)" class="col-sm-4 subscription-card" style="color:#f2d8cb;background-color:#f96213;padding:0px;text-align:center;">
               <h2>PREMIUM</h2>
               <div style="background-color:#f96f27;margin:0px;padding:10px;">
                 <h1>PHP 6.00</h1>
               </div>
               <div style="background-color:white;color:black;">
-              <br><input type="radio" name="item_name" value="12 Months Subscription"> 12 Months Subscription
+              <br><input id="subscription-9" type="radio" name="item_name" value="12 Months Subscription"> 12 Months Subscription
               </div>
             </div>
 
