@@ -55,11 +55,14 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	echo $data['item_name'];
 
 	switch($data['item_name']){
-		case '6 Months Subscription':
+		case '3 Months Subscription':
 			$data['amount'] = 5;
 			break;
-		case '12 Months Subscription':
+		case '6 Months Subscription':
 			$data['amount'] = 10;
+			break;
+		case '12 Months Subscription':
+			$data['amount'] = 15;
 			break;
 		default:
 			$data['amount'] = 0;
