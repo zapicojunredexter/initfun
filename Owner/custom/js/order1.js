@@ -371,7 +371,7 @@ function printOrder(orderId = null) {
 
 function addRow() {
 	$("#addRowBtn").button("loading");
-
+	var today = new Date();
 	var tableLength = $("#productTable tbody tr").length;
 
 	var tableRow;
@@ -424,6 +424,9 @@ function addRow() {
 				'<td style="padding-left:20px;">'+
 					'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" disabled="true" />'+
 					'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
+				'</td>'+
+				'<td style="padding-left:20px;">'+
+					'<input type="date"  name="deliveryDate[]" id="deliveryDate'+count+'" autocomplete="off" class="form-control" value="'+today.getFullYear()+'-'+("0" + today.getMonth()).slice(-2)+"-"+today.getDate()+'"/>'+
 				'</td>'+
 				'<td>'+
 					'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="glyphicon glyphicon-trash"></i></button>'+

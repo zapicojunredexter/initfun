@@ -83,11 +83,12 @@ if($_GET['o'] == 'add') {
 
 			  <table class="table" id="productTable">
 			  	<thead>
-			  		<tr>			  			
-			  			<th style="width:40%;">Product</th>
-			  			<th style="width:20%;">Rate</th>
+			  		<tr>			  						  			
+			  			<th style="width:30%;">Product</th>
+			  			<th style="width:15%;">Rate</th>
 			  			<th style="width:15%;">Quantity</th>			  			
-			  			<th style="width:15%;">Total</th>			  			
+			  			<th style="width:15%;">Total</th>		  			
+			  			<th style="width:15%;">Delivery Date</th>	
 			  			<th style="width:10%;"></th>
 			  		</tr>
 			  	</thead>
@@ -125,6 +126,9 @@ if($_GET['o'] == 'add') {
 			  				<td style="padding-left:20px;">			  					
 			  					<input type="text" name="total[]" id="total<?php echo $x; ?>" autocomplete="off" class="form-control" disabled="true" />			  					
 			  					<input type="hidden" name="totalValue[]" id="totalValue<?php echo $x; ?>" autocomplete="off" class="form-control" />			  					
+			  				</td>
+			  				<td>
+			  					<input type="date" name="deliveryDate[]" id="deliveryDate<?php echo $x; ?>" class="form-control" value="<?php echo date('Y-m-d'); ?>"/>			  					
 			  				</td>
 			  				<td>
 
@@ -216,7 +220,7 @@ if($_GET['o'] == 'add') {
 
 			  <div class="form-group submitButtonFooter">
 			    <div class="col-sm-offset-2 col-sm-10">
-			    <button type="button" class="btn btn-default" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-plus-sign"></i> Add Row </button>
+			    	<button type="button" class="btn btn-default" onclick="addRow()" id="addRowBtn" data-loading-text="Loading..."> <i class="glyphicon glyphicon-plus-sign"></i> Add Row </button>
 
 			      <button type="submit" id="createOrderBtn" data-loading-text="Loading..." class="btn btn-success"><i class="glyphicon glyphicon-ok-sign"></i> Save Changes</button>
 
@@ -285,10 +289,11 @@ if($_GET['o'] == 'add') {
 			  <table class="table" id="productTable">
 			  	<thead>
 			  		<tr>			  			
-			  			<th style="width:40%;">Product</th>
-			  			<th style="width:20%;">Rate</th>
+			  			<th style="width:30%;">Product</th>
+			  			<th style="width:15%;">Rate</th>
 			  			<th style="width:15%;">Quantity</th>			  			
-			  			<th style="width:15%;">Total</th>			  			
+			  			<th style="width:15%;">Total</th>		  			
+			  			<th style="width:15%;">Delivery Date</th>	
 			  			<th style="width:10%;"></th>
 			  		</tr>
 			  	</thead>
@@ -297,9 +302,9 @@ if($_GET['o'] == 'add') {
 
 			  		$orderItemSql = "SELECT * FROM order_item WHERE order_item.order_id = {$orderId}";
 						$orderItemResult = $connect->query($orderItemSql);
+
 						// $orderItemData = $orderItemResult->fetch_all();						
 						
-						// print_r($orderItemData);
 			  		$arrayNumber = 0;
 			  		// for($x = 1; $x <= count($orderItemData); $x++) {
 			  		$x = 1;
@@ -322,9 +327,8 @@ if($_GET['o'] == 'add') {
 			  								} else {
 			  									$selected = "";
 			  								}
-
-			  								echo "<option value='".$row['id']."' id='changeProduct".$row['id']."' ".$selected." >".$row['product_name']."</option>";
-										 	} // /while 
+			  									echo "<option value='".$row['id']."' id='changeProduct".$row['id']."' ".$selected." >".$row['product_name']."</option>";
+											} // /while 
 
 			  						?>
 		  						</select>
@@ -342,6 +346,9 @@ if($_GET['o'] == 'add') {
 			  				<td style="padding-left:20px;">			  					
 			  					<input type="text" name="total[]" id="total<?php echo $x; ?>" autocomplete="off" class="form-control" disabled="true" value="<?php echo $orderItemData['total']; ?>"/>			  					
 			  					<input type="hidden" name="totalValue[]" id="totalValue<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $orderItemData['total']; ?>"/>			  					
+			  				</td>
+			  				<td>
+			  					<input type="date" name="deliveryDate[]" id="deliveryDate<?php echo $x; ?>" autocomplete="off" class="form-control" value="<?php echo $orderItemData['scheduled_delivery']; ?>"/>			  					
 			  				</td>
 			  				<td>
 
