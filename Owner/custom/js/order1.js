@@ -123,12 +123,12 @@ $(document).ready(function() {
 	      }          
 	   	} // for       	
 	   	
-
 			if(orderDate && clientName && clientContact && paid && discount && paymentType && paymentStatus) {
 				if(validateProduct == true && validateQuantity == true) {
 					// create order button
 					// $("#createOrderBtn").button('loading');
 
+					alert('hehe');
 					$.ajax({
 						url : form.attr('action'),
 						type: form.attr('method'),
@@ -369,9 +369,9 @@ function printOrder(orderId = null) {
 	} // /if orderId
 } // /print order function
 
-function addRow() {
+function addRow(isAddOrder) {
 	$("#addRowBtn").button("loading");
-
+	var today = new Date();
 	var tableLength = $("#productTable tbody tr").length;
 
 	var tableRow;
@@ -424,7 +424,16 @@ function addRow() {
 				'<td style="padding-left:20px;">'+
 					'<input type="text" name="total[]" id="total'+count+'" autocomplete="off" class="form-control" disabled="true" />'+
 					'<input type="hidden" name="totalValue[]" id="totalValue'+count+'" autocomplete="off" class="form-control" />'+
-				'</td>'+
+				'</td>'+(isAddOrder || (
+				'<td style="padding-left:20px;">'+
+					'<input type="date"  name="deliveryDate[]" id="deliveryDate'+count+'" autocomplete="off" class="form-control" value="'+today.getFullYear()+'-'+("0" + today.getMonth()).slice(-2)+"-"+today.getDate()+'"/>'+
+				'</td>'))+
+				(isAddOrder || ('<td style="padding-left:20px;">'+
+					'<select class="form-control" name="deliveryStatus[]" id="deliveryStatus'+count+'" >'+
+						'<option value="0">No</option>'+
+						'<option value="1">Yes</option>' +						
+					'</select>'+
+				'</td>'))+
 				'<td>'+
 					'<button class="btn btn-default removeProductRowBtn" type="button" onclick="removeProductRow('+count+')"><i class="glyphicon glyphicon-trash"></i></button>'+
 				'</td>'+

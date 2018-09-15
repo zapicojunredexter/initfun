@@ -103,7 +103,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 			'-',
 			3,
 			0,
-			1,
+			0,
 			$ownerId
 		)";
 

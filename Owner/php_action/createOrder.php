@@ -1,5 +1,4 @@
 <?php 	
-
 require_once 'core.php';
 
 $valid['success'] = array('success' => false, 'messages' => array(), 'order_id' => '');
@@ -48,8 +47,8 @@ if($_POST) {
 			$connect->query($updateProductTable);
 
 			// add into order_item
-			$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status) 
-				VALUES ('$order_id', '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1)";
+			$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status, scheduled_delivery) 
+				VALUES ('$order_id', '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1,'".date('Y-m-d')."')";
 
 			$connect->query($orderItemSql);		
 
