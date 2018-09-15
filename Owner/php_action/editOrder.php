@@ -69,7 +69,7 @@ if($_POST) {
 
 				// add into order_item
 				$orderItemSql = "INSERT INTO order_item (order_id, product_id, quantity, rate, total, order_item_status, scheduled_delivery) 
-					VALUES ({$orderId}, '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', 1, '".$_POST['deliveryDate'][$x]."')";
+					VALUES ({$orderId}, '".$_POST['productName'][$x]."', '".$_POST['quantity'][$x]."', '".$_POST['rateValue'][$x]."', '".$_POST['totalValue'][$x]."', '".$_POST['deliveryStatus'][$x]."', '".$_POST['deliveryDate'][$x]."')";
 
 				$connect->query($orderItemSql);		
 			} // while	
