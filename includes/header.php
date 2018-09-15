@@ -31,6 +31,21 @@
     
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+    <style>
+        .body {
+            overflow-x: scroll;
+        }
+        .datepicker, .table-condensed {
+            width: 500px;
+            height: 400px;
+        }
+        .column {
+            float: left;
+            width: 20%;
+            padding: 5px;
+        }
+
+    </style>
 </head>
 
 <body>

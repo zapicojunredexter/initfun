@@ -3,7 +3,6 @@
 // For test payments we want to enable the sandbox mode. If you want to put live
 // payments through then this setting needs changing to `false`.
 $enableSandbox = true;
-
 // Database settings. Change these for your database configuration.
 $dbConfig = [
 	'host' => 'localhost',
@@ -38,12 +37,11 @@ $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 
 //$itemNames = ['Zapico Item','Zapico Item 1'];
 //$itemAmounts = [5.00,10.00];
 $dates = $_POST['asd'];
-$counter = (int)$_POST['counter'];
 $tax = (float)$_POST['tax'];
 
-$orderDates = explode(",", $dates);
 // Include Functions
 require 'functions.php';
+require 'asd.php';
 
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
@@ -56,7 +54,18 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		if(is_string($value))
 			$data[$key] = stripslashes($value);
 	}
-
+    $ndx = 1;
+    for($i = 1 ; isset($_POST['item_'.strval($i)]) ; $i++){
+        if($_POST['asd_'.strval($i)] != '0'){
+            $lopsaz = strval($ndx);
+            $data['item_name_'.$lopsaz] = $_POST['item_'.strval($i)];
+            $data['amount_'.$lopsaz] = $_POST['price_'.strval($i)];
+            $data['quantity_'.$lopsaz] = $_POST['asd_'.strval($i)];
+            $data['item_number_'.$lopsaz] = $_POST['id_'.strval($i)];
+            $ndx++;
+        }
+    }
+    echo $data['item_name_1'];
 	// Set the PayPal account.
 	$data['business'] = $paypalConfig['email'];
 
@@ -66,13 +75,15 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$data['notify_url'] = stripslashes($paypalConfig['notify_url']);
 	
 	echo stripslashes($paypalConfig['notify_url']);
-
+    
+    
 	// Set the details about the product being purchased, including the amount
 	// and currency so that these aren't overridden by the form data.
 	//$data['item_name'] = $itemName[0];	
 	//$data['amount'] = $itemAmount[0];
 	// $data['item_name'] = $_POST['item_name'];
 	// $data['amount'] = 155.00;
+    /*
 	$i = 1;
 	foreach($_POST['item_names'] as $name){
 		$data['item_name_'.$i] = $name;
@@ -88,19 +99,20 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		$data['amount_'.strval($i+1)] = $_POST['amount_'.strval($i+1)];
 		$data['quantity_'.strval($i+1)] = $_POST['quantity_'.strval($i+1)];
 	}
+    */
 
 	$data['tax_cart'] = $tax * 0.13;
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
-	$data['custom'] = $orderDates;
 
 	// Build the query string from the data.
 	$queryString = http_build_query($data);
+    /*
     for($i = 0 ; $i <  count($orderDates) ; $i++){
         echo $orderDates[$i];
         echo "\n";
-    }
+    }*/
 	// Redirect to paypal IPN
 	header('location:' . $paypalUrl . '?' . $queryString);
 	exit();

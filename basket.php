@@ -5,7 +5,8 @@ require_once 'Owner/php_action/db_connect.php';
 require_once 'functions.php';
 //Class Item with name and price as properties
 class Item {
-	public $itemNo = 12345;
+	public $id;
+    public $photo;
 	public $name;
 	public $price;
 	public $quantity;
@@ -96,7 +97,7 @@ $items = [];  //Initialization of array
 							<th>Product Photo</th>
 							<th>Product name</th>
 							<th>Price</th>
-							<th>Quantity</th>
+							<!--<th>Quantity</th>-->
 							<th>Action</th>
 						</tr>
 						
@@ -119,14 +120,16 @@ $items = [];  //Initialization of array
 		    								</td>";
 		    								echo "<td>".$data3['product_name']."</td>";
 		    								echo "<td>".$data3['rate']."</td>";
-		    								echo "<td>".$value."</td>";
+		    								//echo "<td>".$value."</td>";
 		    								echo '<td><a href="basket.php?add='.$data3['id'].'"><i class="fa fa-plus"></i></a> | <a href="basket.php?remove='.$data3['id'].'"><i class="fa fa-minus"></i></a> | <a href="basket	.php?delete='.$data3['id'].'"><i class="fa fa-times"></i></a></td>';
 											echo "</tr>";
 											//Creating an array of object
 											$items[$i] = new Item();
+                                            $items[$i]->id = $id;
+                                            $items[$i]->photo = $data3['product_image'];
 											$items[$i]->name = $data3['product_name'];
 											$items[$i]->price = $data3['rate'];
-											$items[$i]->quantity = $value;
+											//$items[$i]->quantity = $value;
 											$i++;
                                         }
 							        	
@@ -164,9 +167,7 @@ $items = [];  //Initialization of array
 					</table>
 					<?php 
 						if($total != 0){
-                            
-                            echo '<div id="calendar"></div>';
-							
+							echo '<input type="submit" class="btn btn-default" name="showCalendar" id="showCalendar" value="Confirm" />';
 						// 	echo '
 						// 	<div style="padding-bottom:10px;">
 						// 	<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
@@ -188,75 +189,27 @@ $items = [];  //Initialization of array
 						// 	</div>';
 
 							echo '
-							<div style="padding-bottom:10px;">
-							<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
-                            <input type="hidden" class="form-control" id="asd" name="asd" />
-       						<input type="hidden" name="upload" value="1">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="no_note" value="1" />
-							<input type="hidden" name="lc" value="UK" />
-							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-							<input type="hidden" name="first_name" value="Customer first" />
-							<input type="hidden" name="last_name" value="Customer last" />
-							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />';
-							foreach($items as $item){
-								echo 
-								'<input type="hidden" name="item_name_'.strval($i+1).'" value="'.$item->name.'" />
-								<input type="hidden" name="amount_'.strval($i+1).'" value="'.$item->price.'" />
-								<input type="hidden" name="quantity_'.strval($i+1).'" value="'.$item->quantity.'" />';
-								$i++;
-							}
-							echo '
-							<input type="hidden" name="counter" value="'.$i.'" />
-							<input type="hidden" name="tax" value="'.$total.'" />
-							<input type="submit" name="submit" value="Submit justine"/>
-						    </form>
-							</div>';
+                            <div style="padding-left:25%;padding-bottom:30px;" id="calendar">
+                                <h3 style="text-decoration:underline;">Select delivery dates:</h3> 
+                            </div>
+                            <div id="confPurchase" style="padding-bottom:15px;">
+                                <form name="orderDates" id="orderDates" method="post" action="order_dates.php">
+                                    <input type="hidden" name="dates" id="dates"/>';
+                                    foreach($items as $value){
+                                        echo '<input type="hidden" name="itemId[]" value="'.$value->id.'" />';
+                                        echo '<input type="hidden" name="itemName[]" value="'.$value->name.'" />';
+                                        echo '<input type="hidden" name="itemImg[]" value="'.substr($value->photo, 3).'" />';
+                                        echo '<input type="hidden" name="itemPrice[]" value="'.$value->price.'" />';
+                                    }
+                                echo '
+                                    <button type="submit" class="btn btn-primary" id="calendarConf" disabled="disabled"/>Submit
+                                </form>
+                            </div>
+                            ';
 						}
-						
 					?>
-					
-					<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
-							<!--
-							<input type="hidden" name="cmd" value="_xclick" />
-							-->
-        <input type="hidden" name="upload" value="1">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="no_note" value="1" />
-							<input type="hidden" name="lc" value="UK" />
-							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-							<input type="hidden" name="first_name" value="Customer First Name" />
-							<input type="hidden" name="last_name" value="Customer Last Name" />
-							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
-							<input type="hidden" name="item_name" value="dataddssss" />
-							<input type="hidden" name="item_number" value="123456" / >
-							<input type="submit" name="submit" value="Submit zxc"/>
-
-
-						</form>
-			
-							<form class="paypal" action="paypal-test/payments.php" method="post" id="paypal_form">
-        <!--
-        <input type="hidden" name="cmd" value="_xclick" />
-        -->
-        <input type="hidden" name="upload" value="1">
-
-        <input type="hidden" name="cmd" value="_cart">
-        <input type="hidden" name="no_note" value="1" />
-        <input type="hidden" name="lc" value="UK" />
-        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-        <input type="hidden" name="first_name" value="Customer's First Name" />
-        <input type="hidden" name="last_name" value="Customer's Last Name" />
-        <input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
-        <input type="hidden" name="item_number" value="123456" / >
-        <input type="hidden" name="item_number_1" value="234567" / >
-        <input type="hidden" name="item_number_2" value="234567" / >
-        <input type="submit" name="submit" value="working" />
-    </form>
 					</div>
-					</div>
-			<!-- 	</div>
-			</div> -->
+			    <!-- </div> -->
 
 <?php
 require_once 'includes/footer.php';
