@@ -125,12 +125,9 @@ $items = [];  //Initialization of array
 											echo "</tr>";
 											//Creating an array of object
 											$items[$i] = new Item();
-<<<<<<< HEAD
 											$items[$i]->id = $data3['id'];
-=======
                                             $items[$i]->id = $id;
                                             $items[$i]->photo = $data3['product_image'];
->>>>>>> scheduler
 											$items[$i]->name = $data3['product_name'];
 											$items[$i]->price = $data3['rate'];
 											//$items[$i]->quantity = $value;
@@ -193,33 +190,6 @@ $items = [];  //Initialization of array
 						// 	</div>';
 
 							echo '
-<<<<<<< HEAD
-							<div style="padding-bottom:10px;">
-							<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
-       						<input type="hidden" name="upload" value="1">
-							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="no_note" value="1" />
-							<input type="hidden" name="lc" value="UK" />
-							<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-							<input type="hidden" name="first_name" value="Customer first" />
-							<input type="hidden" name="last_name" value="Customer last" />
-							<input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />';
-							echo '<input type="hidden" name="ownerId" value="'.$_GET['bakeshop'].'" />';
-							foreach($items as $item){
-								echo 
-								'<input type="hidden" name="item_id_'.strval($i+1).'" value="'.$item->id.'" />
-								<input type="hidden" name="item_name_'.strval($i+1).'" value="'.$item->name.'" />
-								<input type="hidden" name="amount_'.strval($i+1).'" value="'.$item->price.'" />
-								<input type="hidden" name="quantity_'.strval($i+1).'" value="'.$item->quantity.'" />';
-								$i++;
-							}
-							echo '
-							<input type="hidden" name="counter" value="'.$i.'" />
-							<input type="hidden" name="tax" value="'.$total.'" />
-							<input type="submit" name="submit" value="Submit justine"/>
-						</form>
-							</div>';
-=======
                             <div style="padding-left:25%;padding-bottom:30px;" id="calendar">
                                 <h3 style="text-decoration:underline;">Select delivery dates:</h3> 
                             </div>
@@ -237,10 +207,8 @@ $items = [];  //Initialization of array
                                 </form>
                             </div>
                             ';
->>>>>>> scheduler
 						}
 					?>
-<<<<<<< HEAD
 					<!--
 					<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
 							
@@ -279,10 +247,8 @@ $items = [];  //Initialization of array
 					</div>
 			<!-- 	</div>
 			</div> -->
-=======
 					</div>
 			    <!-- </div> -->
->>>>>>> scheduler
 
 <?php
 require_once 'includes/footer.php';

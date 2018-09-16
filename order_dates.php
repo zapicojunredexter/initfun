@@ -100,6 +100,7 @@
         <table class="table">
             <tr>
                 <th>Dates</th>
+                <th hidden>Item ID</th>
                 <th>Order/s</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -111,6 +112,19 @@
             foreach($dates as $date){
                 echo '<tr>';
                 echo '<td id="'.$idx.'">'.$date.'</td>
+                      <td hidden>
+                        <table>';
+                        $i = 0;
+                        foreach($itemIds as $id){
+                            echo '
+                                <tr>
+                                    <td id="'.$idx.'.itemId_'.$i.'">'.$id.'</td>
+                                </tr>
+                            ';
+                            $i++;
+                        }
+                echo '</table>
+                      </td>
                       <td>
                         <table>';
                          $i = 0;

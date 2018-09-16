@@ -54,14 +54,19 @@ jQuery(document).ready(function($) {
        var count = (this.id).split('_')[1];
        var idx = (this.id).split('.')[0];
        var itemName = (this.value);
+       var itemId = document.getElementById(idx+'.itemId_'+count);
        var inputbox = document.getElementById(idx+'.qty_'+count);
+       var priceInpt = document.getElementById(idx+'.price_'+count);
+       var price = ($(priceInpt).text() !== "") ? parseInt($(priceInpt).text().replace('P', '')) : 0;
        if($(inputbox).val() === ""){
            $(inputbox).removeAttr('style disabled');
            $(inputbox).val(1);
            dates.push({
                date: $('#'+idx).text(),
                item: itemName,
-               qty: 1
+               itemId: $(itemId).text(),
+               qty: 1,
+               price: price*1
            });
        }else{
            $(inputbox).attr({
@@ -121,18 +126,21 @@ jQuery(document).ready(function($) {
         $('#'+idx+'_total').text('P0');
        }
        
-        console.log(dates);
+       console.log(dates);
        computeGrandTotal();
    });
     
     $('.qtyInp').focusout(function(){
         var count = (this.id).split('_')[1];
         var idx = (this.id).split('.')[0];
-        var date = $(idx).text();
+        var date = document.getElementById(idx).innerHTML;
         var item = document.getElementById(idx+'.chckbox_'+count).value;
+        var priceInpt = document.getElementById(idx+'.price_'+count);
+        var price = ($(priceInpt).text() !== "") ? parseInt($(priceInpt).text().replace('P', '')) : 0;
         
-        for(var j = 0 ; j < dates.length && (dates[j].date !== date && dates[j].item !== item) ; j++){}
-        dates[j].qty = parseInt(this.value);
+        for(var j = 0 ; j < dates.length && (dates[j].date !== date || dates[j].item !== item); j++){}
+        dates[j].qty = parseInt(this.value)
+        dates[j].price = parseInt(this.value)*price;
     })
     
     $('.checkout').submit(function(event){
