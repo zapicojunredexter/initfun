@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
            dates.push({
                date: $('#'+idx).text(),
                item: itemName,
-               qty: $(inputbox).val(),
+               qty: 1,
                price: 0
            });
        }else{
@@ -107,6 +107,7 @@ jQuery(document).ready(function($) {
        var price = 0;
        var qty = 0;
        var grandTotal = 0;
+       
        for(var i = 0 ; i < count ; i++){
            var priceInpt = document.getElementById(idx+'.price_'+i);
            var qtyInpt = document.getElementById(idx+'.qty_'+i);
@@ -124,6 +125,15 @@ jQuery(document).ready(function($) {
         console.log(dates);
        computeGrandTotal();
    });
+    
+    $('.qtyInp').focusout(function(){
+        var idx = (this.id).split('.')[0];
+        var date = $(idx).text();
+        var item = document.getElementById(idx+'.chckbox_'+i).value;
+        
+        for(var j = 0 ; j < dates.length && (dates[j].date !== date && dates[j].item !== item) ; j++){}
+        dates[j].qty = qty;
+    })
     
     $('.checkout').submit(function(event){
         var itemNdx = 0;

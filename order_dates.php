@@ -6,7 +6,7 @@
     $itemImgs = $_POST['itemImg'];
     $itemPrices = $_POST['itemPrice'];
     $temp = $_POST['dates'];
-    $dates = split(',', $temp);
+    $dates = explode(',', $temp);
     $db= mysqli_connect('localhost','root','','initfun');
     if(isset($_GET['add'])){
 	      $id = $_GET['add'];
@@ -143,7 +143,7 @@
                         foreach($itemNames as $names){
                             echo '
                                 <tr>
-                                    <td style="padding-bottom:8px"><input type="number" id="'.$idx.'.qty_'.$k.'" style="cursor:not-allowed;" disabled/></td>
+                                    <td style="padding-bottom:8px"><input class="qtyInp" type="number" id="'.$idx.'.qty_'.$k.'" style="cursor:not-allowed;" disabled/></td>
                                 </tr>
                               ';
                             $k++;
