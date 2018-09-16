@@ -110,7 +110,7 @@
             $idx = 0;
             foreach($dates as $date){
                 echo '<tr>';
-                echo '<td>'.$date.'</td>
+                echo '<td id="'.$idx.'">'.$date.'</td>
                       <td>
                         <table>';
                          $i = 0;
@@ -143,7 +143,7 @@
                         foreach($itemNames as $names){
                             echo '
                                 <tr>
-                                    <td style="padding-bottom:8px"><input type="number" id="'.$idx.'.qty_'.$k.'" style="cursor:not-allowed;" disabled/>
+                                    <td style="padding-bottom:8px"><input type="number" id="'.$idx.'.qty_'.$k.'" style="cursor:not-allowed;" disabled/></td>
                                 </tr>
                               ';
                             $k++;
@@ -197,8 +197,8 @@
                         }
                     ?>
                         <input type="hidden" name="tax" id="tax" value="" />
-                        <input type="hidden" name="asd[]" value="<?php echo $dates; ?>" />
-                        <input type="submit" name="submit" value="Checkout" class="btn btn-primary" id="checkout"/>
+                        <input type="hidden" name="asd" value="<?php echo $dates; ?>" />
+                        <input type="button" name="submit" value="Checkout" class="btn btn-primary" id="checkout"/>
                     </form>
                 </td>
             </tr>

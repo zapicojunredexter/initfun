@@ -1,7 +1,8 @@
 jQuery(document).ready(function($) {
 
   // Header fixed and Back to top button
-  
+  var dates = [];
+    
     $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
       $('.back-to-top').fadeIn('slow');
@@ -52,16 +53,25 @@ jQuery(document).ready(function($) {
    $(':checkbox').change(function(){
        var count = (this.id).split('_')[1];
        var idx = (this.id).split('.')[0];
+       var itemName = (this.value);
        var inputbox = document.getElementById(idx+'.qty_'+count);
        if($(inputbox).val() === ""){
            $(inputbox).removeAttr('style disabled');
            $(inputbox).val(1);
+           dates.push({
+               date: $('#'+idx).text(),
+               item: itemName,
+               qty: $(inputbox).val(),
+               price: 0
+           });
        }else{
            $(inputbox).attr({
                disabled: 'disabled',
                style: 'cursor:not-allowed;'
            });
            $(inputbox).val("");
+           for(var i = 0 ; i < dates.length && dates[i].item !== itemName ; i++){}
+           dates.splice(i, 1);
        }
    });
     
@@ -111,6 +121,7 @@ jQuery(document).ready(function($) {
         $('#'+idx+'_total').text('P0');
        }
        
+        console.log(dates);
        computeGrandTotal();
    });
     
