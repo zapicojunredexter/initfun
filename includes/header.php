@@ -24,9 +24,28 @@
   <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="assets/animate/animate.min.css" rel="stylesheet">
 
+  <!-- BOOTSTRAP CALENDAR -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.standalone.css" rel="stylesheet">
+    
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+    <style>
+        .body {
+            overflow-x: scroll;
+        }
+        .datepicker, .table-condensed {
+            width: 500px;
+            height: 400px;
+        }
+        .column {
+            float: left;
+            width: 20%;
+            padding: 5px;
+        }
 
+    </style>
 </head>
 
 <body>

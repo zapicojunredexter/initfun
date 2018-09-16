@@ -5,7 +5,8 @@ require_once 'Owner/php_action/db_connect.php';
 require_once 'functions.php';
 //Class Item with name and price as properties
 class Item {
-	public $itemNo = 12345;
+	public $id;
+    public $photo;
 	public $name;
 	public $price;
 	public $quantity;
@@ -95,7 +96,7 @@ $items = [];  //Initialization of array
 							<th>Product Photo</th>
 							<th>Product name</th>
 							<th>Price</th>
-							<th>Quantity</th>
+							<!--<th>Quantity</th>-->
 							<th>Action</th>
 						</tr>
 						
@@ -119,15 +120,20 @@ $items = [];  //Initialization of array
 		    								</td>";
 		    								echo "<td>".$data3['product_name']."</td>";
 		    								echo "<td>".$data3['rate']."</td>";
-		    								echo "<td>".$value."</td>";
+		    								//echo "<td>".$value."</td>";
 		    								echo '<td><a href="basket.php?add='.$data3['id'].'"><i class="fa fa-plus"></i></a> | <a href="basket.php?remove='.$data3['id'].'"><i class="fa fa-minus"></i></a> | <a href="basket	.php?delete='.$data3['id'].'"><i class="fa fa-times"></i></a></td>';
 											echo "</tr>";
 											//Creating an array of object
 											$items[$i] = new Item();
+<<<<<<< HEAD
 											$items[$i]->id = $data3['id'];
+=======
+                                            $items[$i]->id = $id;
+                                            $items[$i]->photo = $data3['product_image'];
+>>>>>>> scheduler
 											$items[$i]->name = $data3['product_name'];
 											$items[$i]->price = $data3['rate'];
-											$items[$i]->quantity = $value;
+											//$items[$i]->quantity = $value;
 											$i++;
                                         }
 							        	
@@ -165,7 +171,7 @@ $items = [];  //Initialization of array
 					</table>
 					<?php 
 						if($total != 0){
-							
+							echo '<input type="submit" class="btn btn-default" name="showCalendar" id="showCalendar" value="Confirm" />';
 						// 	echo '
 						// 	<div style="padding-bottom:10px;">
 						// 	<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
@@ -187,6 +193,7 @@ $items = [];  //Initialization of array
 						// 	</div>';
 
 							echo '
+<<<<<<< HEAD
 							<div style="padding-bottom:10px;">
 							<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
        						<input type="hidden" name="upload" value="1">
@@ -212,9 +219,28 @@ $items = [];  //Initialization of array
 							<input type="submit" name="submit" value="Submit justine"/>
 						</form>
 							</div>';
+=======
+                            <div style="padding-left:25%;padding-bottom:30px;" id="calendar">
+                                <h3 style="text-decoration:underline;">Select delivery dates:</h3> 
+                            </div>
+                            <div id="confPurchase" style="padding-bottom:15px;">
+                                <form name="orderDates" id="orderDates" method="post" action="order_dates.php">
+                                    <input type="hidden" name="dates" id="dates"/>';
+                                    foreach($items as $value){
+                                        echo '<input type="hidden" name="itemId[]" value="'.$value->id.'" />';
+                                        echo '<input type="hidden" name="itemName[]" value="'.$value->name.'" />';
+                                        echo '<input type="hidden" name="itemImg[]" value="'.substr($value->photo, 3).'" />';
+                                        echo '<input type="hidden" name="itemPrice[]" value="'.$value->price.'" />';
+                                    }
+                                echo '
+                                    <button type="submit" class="btn btn-primary" id="calendarConf" disabled="disabled"/>Submit
+                                </form>
+                            </div>
+                            ';
+>>>>>>> scheduler
 						}
-						
 					?>
+<<<<<<< HEAD
 					<!--
 					<form class="paypal" action="paypal/payments.php" method="post" id="paypal_form">
 							
@@ -253,6 +279,10 @@ $items = [];  //Initialization of array
 					</div>
 			<!-- 	</div>
 			</div> -->
+=======
+					</div>
+			    <!-- </div> -->
+>>>>>>> scheduler
 
 <?php
 require_once 'includes/footer.php';

@@ -4,8 +4,18 @@
 // payments through then this setting needs changing to `false`.
 session_start();
 $enableSandbox = true;
+<<<<<<< HEAD
 
 $db = mysqli_connect('localhost','root','','initfun');
+=======
+// Database settings. Change these for your database configuration.
+$dbConfig = [
+	'host' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'name' => 'example_database'
+];
+>>>>>>> scheduler
 
 // PayPal settings. Change these to your account details and the relevant URLs
 // for your site.
@@ -27,11 +37,20 @@ $paypalConfig = [
 
 $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 
+<<<<<<< HEAD
 $counter = (int)$_POST['counter'];
+=======
+// Product being purchased.
+//$itemName = 'Test Item';
+//$itemAmount = 5.00;
+//$itemNames = ['Zapico Item','Zapico Item 1'];
+//$itemAmounts = [5.00,10.00];
+>>>>>>> scheduler
 $tax = (float)$_POST['tax'];
 
 // Include Functions
 require 'functions.php';
+require 'asd.php';
 
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
@@ -50,11 +69,23 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// Ideally we'd use a whitelist here to check nothing is being injected into
 	// our post data.
 	$data = [];
+    $jsonData = $_POST['toDb'];
+    $dates = json_decode($jsonData, true);
 	foreach ($_POST as $key => $value) {
 		if(is_string($value))
 			$data[$key] = stripslashes($value);
 	}
-
+    $ndx = 1;
+    for($i = 1 ; isset($_POST['item_'.strval($i)]) ; $i++){
+        if($_POST['asd_'.strval($i)] != '0'){
+            $lopsaz = strval($ndx);
+            $data['item_name_'.$lopsaz] = $_POST['item_'.strval($i)];
+            $data['amount_'.$lopsaz] = $_POST['price_'.strval($i)];
+            $data['quantity_'.$lopsaz] = $_POST['asd_'.strval($i)];
+            $data['item_number_'.$lopsaz] = $_POST['id_'.strval($i)];
+            $ndx++;
+        }
+    }
 	// Set the PayPal account.
 	$data['business'] = $paypalConfig['email'];
 	$totalAmount = 0;
@@ -114,8 +145,22 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$data['return'] = stripslashes($paypalConfig['return_url']."?orderId=".$orderId);
 	$data['cancel_return'] = stripslashes($paypalConfig['cancel_url']."?orderId=".$orderId);
 	$data['notify_url'] = stripslashes($paypalConfig['notify_url']);
+<<<<<<< HEAD
 
 
+=======
+	
+	//echo stripslashes($paypalConfig['notify_url']);
+    
+    
+	// Set the details about the product being purchased, including the amount
+	// and currency so that these aren't overridden by the form data.
+	//$data['item_name'] = $itemName[0];	
+	//$data['amount'] = $itemAmount[0];
+	// $data['item_name'] = $_POST['item_name'];
+	// $data['amount'] = 155.00;
+    /*
+>>>>>>> scheduler
 	$i = 1;
 	foreach($_POST['item_names'] as $name){
 		$data['item_name_'.$i] = $name;
@@ -123,8 +168,14 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		echo $data['item_name_'.$i]."costs".$_POST['amount'][$i];
 		$i++;
 	}
+<<<<<<< HEAD
 
 	$totalAmount = 0;
+=======
+	// $data['item_name_2'] = 'akoi nagset ani nga 2 ';
+	// $data['amount_2'] = 175.00;
+	
+>>>>>>> scheduler
 	for($i = 0 ; $i < $counter ; $i++){
 
 		$amount = $_POST['amount_'.strval($i+1)];
@@ -160,18 +211,26 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 		mysqli_query($db, $query);
 	
 	}
+    */
 
 	$data['tax_cart'] = $tax * 0.13;
 	$data['currency_code'] = 'PHP';
 
 	// Add any custom fields for the query string.
-	//$data['custom'] = USERID;
 
 	// Build the query string from the data.
 	$queryString = http_build_query($data);
-
+    /*
+    for($i = 0 ; $i <  count($orderDates) ; $i++){
+        echo $orderDates[$i];
+        echo "\n";
+    }*/
 	// Redirect to paypal IPN
+<<<<<<< HEAD
 	
 	header('location:' . $paypalUrl . '?' . $queryString);
+=======
+	//header('location:' . $paypalUrl . '?' . $queryString);
+>>>>>>> scheduler
 	exit();
 }
