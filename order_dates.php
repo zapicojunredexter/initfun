@@ -181,6 +181,7 @@
                         <input type="hidden" name="first_name" value="Customer's First Name" />
                         <input type="hidden" name="last_name" value="Customer's Last Name" />
                         <input type="hidden" name="payer_email" value="zapicojunredexter-buyer@gmail.com" />
+                        <input type="hidden" name="toDb" id="toDb" value="" />
                     <?php
                         $i = 1;
                         $nameWithPrices = array_combine($itemNames, $itemPrices);
@@ -198,7 +199,7 @@
                     ?>
                         <input type="hidden" name="tax" id="tax" value="" />
                         <input type="hidden" name="asd" value="<?php echo $dates; ?>" />
-                        <input type="button" name="submit" value="Checkout" class="btn btn-primary" id="checkout"/>
+                        <input type="submit" name="submit" value="Checkout" class="btn btn-primary" id="checkout"/>
                     </form>
                 </td>
             </tr>

@@ -36,7 +36,6 @@ $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 
 //$itemAmount = 5.00;
 //$itemNames = ['Zapico Item','Zapico Item 1'];
 //$itemAmounts = [5.00,10.00];
-$dates = $_POST['asd'];
 $tax = (float)$_POST['tax'];
 
 // Include Functions
@@ -50,6 +49,8 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	// Ideally we'd use a whitelist here to check nothing is being injected into
 	// our post data.
 	$data = [];
+    $jsonData = $_POST['toDb'];
+    $dates = json_decode($jsonData, true);
 	foreach ($_POST as $key => $value) {
 		if(is_string($value))
 			$data[$key] = stripslashes($value);
@@ -65,7 +66,6 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
             $ndx++;
         }
     }
-    echo $data['item_name_1'];
 	// Set the PayPal account.
 	$data['business'] = $paypalConfig['email'];
 
@@ -74,7 +74,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$data['cancel_return'] = stripslashes($paypalConfig['cancel_url']);
 	$data['notify_url'] = stripslashes($paypalConfig['notify_url']);
 	
-	echo stripslashes($paypalConfig['notify_url']);
+	//echo stripslashes($paypalConfig['notify_url']);
     
     
 	// Set the details about the product being purchased, including the amount
@@ -114,7 +114,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
         echo "\n";
     }*/
 	// Redirect to paypal IPN
-	header('location:' . $paypalUrl . '?' . $queryString);
+	//header('location:' . $paypalUrl . '?' . $queryString);
 	exit();
 } else {
 	// Handle the PayPal response.

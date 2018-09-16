@@ -61,8 +61,7 @@ jQuery(document).ready(function($) {
            dates.push({
                date: $('#'+idx).text(),
                item: itemName,
-               qty: 1,
-               price: 0
+               qty: 1
            });
        }else{
            $(inputbox).attr({
@@ -127,12 +126,13 @@ jQuery(document).ready(function($) {
    });
     
     $('.qtyInp').focusout(function(){
+        var count = (this.id).split('_')[1];
         var idx = (this.id).split('.')[0];
         var date = $(idx).text();
-        var item = document.getElementById(idx+'.chckbox_'+i).value;
+        var item = document.getElementById(idx+'.chckbox_'+count).value;
         
         for(var j = 0 ; j < dates.length && (dates[j].date !== date && dates[j].item !== item) ; j++){}
-        dates[j].qty = qty;
+        dates[j].qty = parseInt(this.value);
     })
     
     $('.checkout').submit(function(event){
@@ -156,9 +156,9 @@ jQuery(document).ready(function($) {
                         qty += parseInt(zapico);
                     }
                 }
-                alert(qty);
                 $(hiddenQty).val(qty);
             }
+            $('#toDb').val(JSON.stringify(dates));
         }
     });
     
