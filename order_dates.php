@@ -212,7 +212,6 @@
                         }
                     ?>
                         <input type="hidden" name="tax" id="tax" value="" />
-                        <input type="hidden" name="asd" value="<?php echo $dates; ?>" />
                         <input type="submit" name="submit" value="Checkout" class="btn btn-primary" id="checkout"/>
                     </form>
                 </td>

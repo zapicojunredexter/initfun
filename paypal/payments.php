@@ -28,7 +28,7 @@ $paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 
 // Product being purchased.
 $subTotal = (float)$_POST['tax'];
 $taxRate = 0.13;
-$taxAmt = $totalAmt * $taxRate;
+$taxAmt = $subTotal * $taxRate;
 $grandTotal = $subTotal + $taxAmt;
 
 // Include Functions
@@ -53,10 +53,12 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$data = [];
     $jsonData = $_POST['toDb'];
     $dates = json_decode($jsonData, true);
+    
 	foreach ($_POST as $key => $value) {
 		if(is_string($value))
 			$data[$key] = stripslashes($value);
 	}
+    
     $ndx = 1;
     for($i = 1 ; isset($_POST['item_'.strval($i)]) ; $i++){
         if($_POST['asd_'.strval($i)] != '0'){
@@ -65,11 +67,12 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
             $data['amount_'.$lopsaz] = $_POST['price_'.strval($i)];
             $data['quantity_'.$lopsaz] = $_POST['asd_'.strval($i)];
             $data['item_number_'.$lopsaz] = $_POST['id_'.strval($i)];
+            echo $data['item_name_'.$lopsaz].' '.$data['amount_'.$lopsaz].' '.$data['quantity_'.$lopsaz];
             $ndx++;
         }
     }
-    $taxRate = 0.13;
-	$data['tax_cart'] = $tax * 0.13;
+    
+	$data['tax_cart'] = $taxAmt;
 	$data['currency_code'] = 'PHP';
     
 	// Set the PayPal account.
@@ -121,9 +124,9 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 	$data['cancel_return'] = stripslashes($paypalConfig['cancel_url']."?orderId=".$orderId);
 	$data['notify_url'] = stripslashes($paypalConfig['notify_url']);
 	
-	stripslashes($paypalConfig['notify_url']);
-
-    foreach($dates as $data){
+	echo stripslashes($paypalConfig['notify_url']);
+    
+    foreach($dates as $blabla){
         $query = "INSERT INTO order_item (
             order_id,
             product_id,
@@ -133,17 +136,17 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
             order_item_status,
             scheduled_delivery) VALUES (
                 $orderId,
-                '".$data['itemId']."',
-                '".$data['qty']."',
+                '".$blabla['itemId']."',
+                '".$blabla['qty']."',
                 1,
                 1,
                 1,
-                '".$data['date']."'
+                '".$blabla['date']."'
             )";
 
         mysqli_query($db, $query);
     }
-
+    
 	// Add any custom fields for the query string.
 
 	// Build the query string from the data.

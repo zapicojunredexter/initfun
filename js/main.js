@@ -166,8 +166,8 @@ jQuery(document).ready(function($) {
                 }
                 $(hiddenQty).val(qty);
             }
-            $('#toDb').val(JSON.stringify(dates));
         }
+        $('#toDb').val(JSON.stringify(dates));
     });
     
   });
